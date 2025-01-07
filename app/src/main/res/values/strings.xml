@@ -1,4 +1,52 @@
 <resources>
-    <string name="app_name">Proyecto2T_PMDM</string>
-    <string name="nose">UWU</string>
+    <string name="app_name">Android Messenger</string>
+    <string name="sing_in">Iniciar sesión:</string>
+    <string name="login_usuario">Correo electrónico</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="snackbar_iniciar">Has iniciado sesión.</string>
+    <string name="no_recordar">
+        <u>¿Has olvidado tu contraseña? Crea una nueva.</u>
+    </string>
+    <string name="snackbar_recordar">No te preocupes, ¡ahora crearemos otra!</string>
+    <string name="iniciar_con">También puedes iniciar sesión con:</string>
+    <string name="sesion_google">Google</string>
+    <string name="snackbar_iniciar_google">Has iniciado sesión con Google.</string>
+    <string name="sesion_facebook">Facebook</string>
+    <string name="snackbar_iniciar_facebook">Has iniciado sesión con Facebook.</string>
+    <string name="login_contrasenya">Contraseña</string>
+    <string name="crear_cuenta">¿Aún no tienes cuenta?</string>
+    <string name="logo">Android Messenger Logo</string>
+    <string name="no_cuenta">
+        <u>¿No tienes una cuenta? ¡Regístrate ahora!</u>
+    </string>
+    <string name="snackbar_no_cuenta">"¡Genial! Ahora crearás tu cuenta."</string>
+    <string name="snackbar_cerrar">"Cerrar"</string>
+    <string name="login_contrasenya_helper">"La contraseña debe tener 8 carácteres como mínimo"</string>
+    <string name="login_correo_helper">"Debes introducir un correo electrónico."</string>
+    <string name="login_error">"No se ha podido iniciar sesión."</string>
+    <string name="nombre_rv">"Nombre"</string>
+    <string name="estado_rv">"Estado"</string>
+    <string name="favorito_rv">"Favorito"</string>
+    <string name="imagen_rv">"Imagen"</string>
+    <string name="disponibilidad_rv">"Disponibilidad"</string>
+    <string name="sing_up_ra">"Regístrate"</string>
+    <string name="fecha_nacimiento_ra">Fecha de nacimiento</string>
+    <string name="nickname_ra">"Nombre de usuario"</string>
+    <string name="cambiar_img_ra">"Cambiar imagen"</string>
+    <string name="registrarse_ra">"Registrarse"</string>
+    <string name="usuario_error_ra">"Debes introducir un nombre de usuario."</string>
+    <string name="snackbar_registrarse_ra">"Usuario registrado correctamente."</string>
+    <string name="date_ra">"DD/MM/AAAA"</string>
+    <string name="btn_date_ra">"Introduce tu fecha de nacimiento"</string>
+    <string name="telefono_ca" translatable="false">"999999999"</string>
+    <string name="wtpp_ca" translatable="false">"675493702"</string>
+    <string name="map_ca">"Ver localización"</string>
+    <string name="mail_ca" translatable="false">"support@microsoft.com"</string>
+    <string name="location_ca">"One Microsoft Way, Redmond, WA 98052, Estados Unidos"</string>
+    <string name="titulo_ca" translatable="false">"Microsoft"</string>
+    <string name="snack_wtpp_ca">"Se abrirá la aplicación Whatsapp"</string>
+    <string name="snack_mail_ca">"Se abrirá la aplicación de correo"</string>
+    <string name="snack_maps_ca">"Se abrirá la aplicación de maps"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
