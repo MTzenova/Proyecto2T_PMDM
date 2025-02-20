@@ -21,11 +21,10 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
         cargarFragment(LoginFragment())
         var numFragment = 1
 
-        //Establece la vista del activity
-        setContentView(view)
 
 
-        //Ahora puedes acceder a tus vistas directamente usando la variable de vinculación
+
+
 
     }
 
