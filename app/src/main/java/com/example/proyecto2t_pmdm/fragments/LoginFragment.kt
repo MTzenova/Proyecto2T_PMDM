@@ -17,11 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 //private const val ARG_PARAM1 = "param1"
 //private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 

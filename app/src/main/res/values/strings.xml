@@ -16,7 +16,9 @@
     <string name="login_contrasenya">Contraseña</string>
     <string name="crear_cuenta">¿Aún no tienes cuenta?</string>
     <string name="logo">Android Messenger Logo</string>
-    <string name="no_cuenta"><u>¿No tienes una cuenta? ¡Regístrate ahora!</u></string>
+    <string name="no_cuenta">
+        <u>¿No tienes una cuenta? ¡Regístrate ahora!</u>
+    </string>
     <string name="snackbar_no_cuenta">"¡Genial! Ahora crearás tu cuenta."</string>
     <string name="snackbar_cerrar">"Cerrar"</string>
     <string name="login_contrasenya_helper">"La contraseña debe tener 8 carácteres como mínimo"</string>
