@@ -78,9 +78,8 @@ class LoginFragment : Fragment() {
             }
             if(bien){
                 val snackLogin = Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
-                //Intent
-                //val intent: Intent = Intent(this, FavoritosActivity::class.java)
-                //startActivity(intent)
+                //al pulsar el botón de iniciar sesion, nos carga el fragment de favoritos
+                cargarFragment(FavoritosFragment())
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {
@@ -106,6 +105,10 @@ class LoginFragment : Fragment() {
             listener?.onFragmentChangeLogin()
         }
 
+    }
+
+    private fun cargarFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
     }
 
     override fun onDestroyView()

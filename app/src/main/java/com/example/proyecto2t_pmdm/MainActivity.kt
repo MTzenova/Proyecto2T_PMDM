@@ -16,16 +16,9 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
 
         binding = ActivityMainBinding.inflate(layoutInflater) //infla al vista utilizando la clase de vinculación
         val view = binding.root
-
+        setContentView(view)
         //cargamos el fragment del login primero
-        cargarFragment(LoginFragment())
-        var numFragment = 1
-
-
-
-
-
-
+        cargarFragment(LoginFragment.getInstance())
     }
 
     private fun cargarFragment(fragment: Fragment) {
@@ -37,4 +30,5 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
     override fun onFragmentChangeLogin(){
         cargarFragment(RegisterFragment())
     }
+
 }
