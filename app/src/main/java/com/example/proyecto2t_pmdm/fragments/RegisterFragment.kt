@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentRegisterBinding
 import com.google.android.material.snackbar.Snackbar
@@ -58,6 +59,7 @@ class RegisterFragment : Fragment() {
                 //Intent
                 //val intent: Intent = Intent(this, FavoritosActivity::class.java)
                 //startActivity(intent)
+                findNavController().navigate(R.id.action_registerFragment2_to_favoritosFragment)
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {

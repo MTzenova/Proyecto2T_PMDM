@@ -3,6 +3,7 @@ package com.example.proyecto2t_pmdm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.example.proyecto2t_pmdm.databinding.ActivityMainBinding
 import com.example.proyecto2t_pmdm.fragments.LoginFragment
 import com.example.proyecto2t_pmdm.fragments.RegisterFragment
@@ -15,20 +16,33 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater) //infla al vista utilizando la clase de vinculación
-        val view = binding.root
-        setContentView(view)
+
+        setContentView(binding.root)
         //cargamos el fragment del login primero
-        cargarFragment(LoginFragment.getInstance())
+        if(savedInstanceState == null) {
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+            val navController = navHostFragment.navController
+        }
     }
 
-    private fun cargarFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, fragment)
-        transaction.commit()
-    }
+//    private fun cargarFragment(fragment: Fragment) {
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.fragment_container_view, fragment)
+//        transaction.commit()
+//    }
 
     override fun onFragmentChangeLogin(){
-        cargarFragment(RegisterFragment())
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_loginFragment2_to_registerFragment2)
     }
+    //Nuevo método para configurar el componente Navigation
+    override fun onSupportNavigateUp(): Boolean
+    {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        val navController = navHostFragment.navController
 
+        return navController.navigateUp() || super.onSupportNavigateUp()
+
+    }
 }

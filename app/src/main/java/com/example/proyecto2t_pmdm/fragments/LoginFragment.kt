@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentLoginBinding
 import com.example.proyecto2t_pmdm.viewmodels.SharedViewModel
@@ -74,7 +75,8 @@ class LoginFragment : Fragment() {
             if(bien){
                 val snackLogin = Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
                 //al pulsar el botón de iniciar sesion, nos carga el fragment de favoritos
-                cargarFragment(FavoritosFragment())
+                //cargarFragment(FavoritosFragment())
+                findNavController().navigate(R.id.action_loginFragment2_to_favoritosFragment)
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {
@@ -103,7 +105,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun cargarFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
+        parentFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment).commit()
     }
 
     override fun onDestroyView()

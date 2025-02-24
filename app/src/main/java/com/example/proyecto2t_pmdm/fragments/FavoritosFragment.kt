@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,8 @@ import kotlinx.coroutines.launch
 
 class FavoritosFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
+
+
 
     private var _binding: FragmentFavoritosBinding?=null
     private val binding get() = _binding!!
@@ -46,7 +49,7 @@ class FavoritosFragment : Fragment() {
 
         //Datos
         val contactosList = listOf(
-            Item(R.drawable.msn_disponible,"Emilio","A un macarrón no se la dan con queso","(Disponible)",false),
+            Item(R.drawable.msn_disponible,"Edu","Voy a domesticar a tu gato","(Disponible)",false),
             Item(R.drawable.msn_ocupado,"David","Ocupado en este momento, no voy a responder","(Ausente)",false),
             Item(R.drawable.msn_disponible,"Fuyur","Mónica, eres la mejor","(Disponible)",false),
             Item(R.drawable.msn_desconectado,"Inés","Me gustan los gatos","(Desconectado)",false),
@@ -58,6 +61,7 @@ class FavoritosFragment : Fragment() {
             Item(R.drawable.msn_disponible,"Basty","Miauu","(Disponible)",false)
         )
 
+        //var searchView: SearchView = view.findViewById(R.id.searchView)
         //Referencia al RecyclerView en el layout
         val reciclerView: RecyclerView = view.findViewById(R.id.rv)
 

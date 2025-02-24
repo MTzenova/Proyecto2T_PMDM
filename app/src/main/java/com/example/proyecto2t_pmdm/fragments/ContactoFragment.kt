@@ -37,8 +37,13 @@ class ContactoFragment : Fragment() {
         //listener = null
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -119,9 +124,9 @@ class ContactoFragment : Fragment() {
                     "no hay ninguna app disponible", Snackbar.LENGTH_LONG).show()
     }
 
-    private fun cargarFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
-    }
+//    private fun cargarFragment(fragment: Fragment) {
+//        parentFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment).commit()
+//    }
 
     companion object {
         //Patrón Singleton

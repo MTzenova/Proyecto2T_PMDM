@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph.xml"
+            app:startDestination="@id/loginFragment2">
+    <fragment android:id="@+id/loginFragment2" android:name="com.example.proyecto2t_pmdm.fragments.LoginFragment"
+              android:label="fragment_login" tools:layout="@layout/fragment_login">
+        <action android:id="@+id/action_loginFragment2_to_registerFragment2" app:destination="@id/registerFragment2"/>
+        <action android:id="@+id/action_loginFragment2_to_favoritosFragment" app:destination="@id/favoritosFragment"/>
+        <action android:id="@+id/action_loginFragment2_to_contactoFragment2" app:destination="@id/contactoFragment2"/>
+    </fragment>
+    <fragment android:id="@+id/registerFragment2" android:name="com.example.proyecto2t_pmdm.fragments.RegisterFragment"
+              android:label="fragment_register" tools:layout="@layout/fragment_register">
+        <action android:id="@+id/action_registerFragment2_to_loginFragment2" app:destination="@id/loginFragment2"/>
+        <action android:id="@+id/action_registerFragment2_to_favoritosFragment"
+                app:destination="@id/favoritosFragment"/>
+    </fragment>
+    <fragment android:id="@+id/favoritosFragment" android:name="com.example.proyecto2t_pmdm.fragments.FavoritosFragment"
+              android:label="fragment_favoritos" tools:layout="@layout/fragment_favoritos"/>
+    <fragment android:id="@+id/contactoFragment2" android:name="com.example.proyecto2t_pmdm.fragments.ContactoFragment"
+              android:label="fragment_contacto" tools:layout="@layout/fragment_contacto"/>
+</navigation>
