@@ -25,12 +25,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
         }
     }
 
-//    private fun cargarFragment(fragment: Fragment) {
-//        val transaction = supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.fragment_container_view, fragment)
-//        transaction.commit()
-//    }
-
     override fun onFragmentChangeLogin(){
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         val navController = navHostFragment.navController

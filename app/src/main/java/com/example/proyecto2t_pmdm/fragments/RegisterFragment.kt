@@ -59,7 +59,7 @@ class RegisterFragment : Fragment() {
                 //Intent
                 //val intent: Intent = Intent(this, FavoritosActivity::class.java)
                 //startActivity(intent)
-                findNavController().navigate(R.id.action_registerFragment2_to_favoritosFragment)
+                findNavController().navigate(R.id.action_registerFragment2_to_scaffoldFragment3)
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {

@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
                 val snackLogin = Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
                 //al pulsar el botón de iniciar sesion, nos carga el fragment de favoritos
                 //cargarFragment(FavoritosFragment())
-                findNavController().navigate(R.id.action_loginFragment2_to_favoritosFragment)
+                findNavController().navigate(R.id.action_loginFragment2_to_scaffoldFragment3)
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {
@@ -99,7 +99,21 @@ class LoginFragment : Fragment() {
         //boton no tener cuenta -- lleva a register
         binding.noCuenta.setOnClickListener{
             val snackNoCuenta = Snackbar.make(binding.root, R.string.snackbar_no_cuenta, Snackbar.LENGTH_LONG).show()
-            listener?.onFragmentChangeLogin()
+            findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2)
+        }
+
+        binding.button2.setOnClickListener()
+        {
+            val snackLoginGoogle = Snackbar.make(binding.root, R.string.snackbar_iniciar_google, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
+            {
+
+            }
+            snackLoginGoogle.show()
+        }
+
+        binding.button3.setOnClickListener()
+        {
+            val snackLoginFacebook = Snackbar.make(binding.root, R.string.snackbar_iniciar_facebook, Snackbar.LENGTH_LONG).show()
         }
 
     }

@@ -8,6 +8,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.NavHostFragment
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
 
@@ -20,9 +21,9 @@ class ScaffoldFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, SavedState: Bundle?):View?{
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View?{
         // Inflate the layout
-        binding = FragmentScaffoldBinding.inflate(layoutInflater)
+        binding = FragmentScaffoldBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,7 +53,8 @@ class ScaffoldFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         /* DRAWERLAYOUT */
-
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_scaffold) as NavHostFragment
+        val navController = navHostFragment.navController
         val toggle = ActionBarDrawerToggle(requireActivity(), binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -61,15 +63,17 @@ class ScaffoldFragment : Fragment() {
                 item -> when(item.itemId)
             {
                 R.id.nav_home -> {
+                    navController.navigate(R.id.listaFragment) //cambiar este por la lista
                     true
                 }
 
                 R.id.nav_dashboard -> {
-
+                    navController.navigate(R.id.contactoFragment)
                     true
                 }
 
                 R.id.nav_notifications -> {
+                    navController.navigate(R.id.favoritosFragment2)
                     true
                 }
 
@@ -84,14 +88,17 @@ class ScaffoldFragment : Fragment() {
             when (item.itemId) {
                 R.id.bnm_home -> {
                     // Handle Home navigation
+                    navController.navigate(R.id.listaFragment) //cambiar este por la lista
                     true
                 }
                 R.id.bnm_dashboard -> {
                     // Handle Dashboard navigation
+                    navController.navigate(R.id.contactoFragment)
                     true
                 }
                 R.id.bnm_notifications -> {
                     // Handle Notifications navigation
+                    navController.navigate(R.id.favoritosFragment2)
                     true
                 }
                 else -> false

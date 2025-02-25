@@ -125,8 +125,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
     <TextView
-            android:text="@string/iniciar_sesion"
-            android:textColor="@color/black"
+            android:text="@string/iniciar_sesion_rf"
+            android:textColor="#000750"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/registrarse_ra"
@@ -134,7 +134,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.25"
-            app:layout_constraintHorizontal_bias="0.503"/>
+            app:layout_constraintHorizontal_bias="0.503" android:textStyle="bold"/>
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -3,10 +3,12 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph.xml"
-            app:startDestination="@id/loginFragment2">
+            app:startDestination="@id/listaFragment">
     <fragment android:id="@+id/contactoFragment" android:name="com.example.proyecto2t_pmdm.fragments.ContactoFragment"
               android:label="fragment_contacto" tools:layout="@layout/fragment_contacto"/>
     <fragment android:id="@+id/favoritosFragment2"
               android:name="com.example.proyecto2t_pmdm.fragments.FavoritosFragment" android:label="fragment_favoritos"
               tools:layout="@layout/fragment_favoritos"/>
+    <fragment android:id="@+id/listaFragment" android:name="com.example.proyecto2t_pmdm.fragments.ListaFragment"
+              android:label="fragment_lista" tools:layout="@layout/fragment_lista"/>
 </navigation>
