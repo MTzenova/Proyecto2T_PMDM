@@ -1,16 +1,18 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
+
 }
 
 android {
     namespace = "com.example.proyecto2t_pmdm"
-    compileSdk = 34
-
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.example.proyecto2t_pmdm"
         minSdk = 24
-        targetSdk = 34
+        this.targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -53,4 +55,24 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
+    //Agregar la dependencia para Firebase Authentication
+    implementation ("com.google.firebase:firebase-auth")
+    //Agregar la dependencia para Google Play services si vas a usar autenticación con Google
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    // Agregar la dependencia para Credential Manager
+    implementation ("androidx.credentials:credentials:1.5.0-rc01")
+    implementation ("androidx.credentials:credentials-play-services-auth:1.5.0-rc01")
+    implementation ("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    //implementation("androidx.activity:activity-compose:1.10.0")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation("com.google.firebase:firebase-analytics")
+
+
 }
