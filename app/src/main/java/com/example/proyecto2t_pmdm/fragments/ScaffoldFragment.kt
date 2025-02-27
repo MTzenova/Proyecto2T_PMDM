@@ -63,7 +63,7 @@ class ScaffoldFragment : Fragment() {
                 item -> when(item.itemId)
             {
                 R.id.nav_home -> {
-                    navController.navigate(R.id.listaFragment) //cambiar este por la lista
+                    navController.navigate(R.id.listaFragment)
                     true
                 }
 
@@ -101,6 +101,7 @@ class ScaffoldFragment : Fragment() {
                     navController.navigate(R.id.favoritosFragment2)
                     true
                 }
+                //podemos añadir un boton para salir de la sesión
                 else -> false
             }
         }

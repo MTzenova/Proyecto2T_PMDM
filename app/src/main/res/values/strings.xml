@@ -59,4 +59,5 @@
     <string name="informacion">"Información"</string>
     <string name="opciones">"Opciones"</string>
     <string name="iniciar_sesion_rf"><u>Iniciar sesión</u></string>
+    <string name="buscar_drawer">"Buscar"</string>
 </resources>

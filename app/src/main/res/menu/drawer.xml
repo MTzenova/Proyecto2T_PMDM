@@ -6,8 +6,8 @@
 
             <item
                     android:id="@+id/nav_home"
-                    android:icon="@drawable/ic_home"
-                    android:title="@string/lista_favoritos"/>
+                    android:icon="@drawable/ic_lista"
+                    android:title="@string/lista_amigos"/>
             <item
                     android:id="@+id/nav_dashboard"
                     android:icon="@drawable/fav_selected"

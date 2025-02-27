@@ -8,7 +8,6 @@
               android:label="fragment_login" tools:layout="@layout/fragment_login">
         <action android:id="@+id/action_loginFragment2_to_registerFragment2" app:destination="@id/registerFragment2"/>
         <action android:id="@+id/action_loginFragment2_to_scaffoldFragment3" app:destination="@id/scaffoldFragment3"/>
-        <action android:id="@+id/action_loginFragment2_to_contactoFragment2" app:destination="@id/contactoFragment2"/>
     </fragment>
     <fragment android:id="@+id/registerFragment2" android:name="com.example.proyecto2t_pmdm.fragments.RegisterFragment"
               android:label="fragment_register" tools:layout="@layout/fragment_register">
@@ -19,10 +18,5 @@
     <fragment android:id="@+id/scaffoldFragment3" android:name="com.example.proyecto2t_pmdm.fragments.ScaffoldFragment"
               android:label="ScaffoldFragment">
         <action android:id="@+id/action_scaffoldFragment3_to_loginFragment2" app:destination="@id/loginFragment2"/>
-        <action android:id="@+id/action_scaffoldFragment3_self" app:destination="@id/scaffoldFragment3"/>
-    </fragment>
-    <fragment android:id="@+id/contactoFragment2" android:name="com.example.proyecto2t_pmdm.fragments.ContactoFragment"
-              android:label="fragment_contacto" tools:layout="@layout/fragment_contacto">
-        <action android:id="@+id/action_contactoFragment2_to_loginFragment2" app:destination="@id/loginFragment2"/>
     </fragment>
 </navigation>

@@ -70,6 +70,10 @@ class RegisterFragment : Fragment() {
 
         }
 
+        binding.textoIniciarSesion.setOnClickListener{
+            findNavController().navigate(R.id.action_registerFragment2_to_loginFragment2)
+        }
+
         binding.btnDateRa.setOnClickListener {
             val cal = java.util.Calendar.getInstance()
             val dateSetListener = DatePickerDialog.OnDateSetListener {

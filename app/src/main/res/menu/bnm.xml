@@ -1,14 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/bnm_home"
-            android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/lista_amigos"/>
     <item
             android:id="@+id/bnm_dashboard"
-            android:icon="@drawable/ic_dashboard"
-            android:title="Dashboard" />
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/informacion"/>
     <item
             android:id="@+id/bnm_notifications"
-            android:icon="@drawable/ic_notifications"
-            android:title="Notifications" />
+            android:icon="@drawable/fav_selected"
+            android:title="@string/lista_favoritos"/>
 </menu>

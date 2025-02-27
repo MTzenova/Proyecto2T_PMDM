@@ -128,7 +128,7 @@
             android:text="@string/iniciar_sesion_rf"
             android:textColor="#000750"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView6"
+            android:layout_height="wrap_content" android:id="@+id/texto_iniciar_sesion"
             app:layout_constraintTop_toBottomOf="@+id/registrarse_ra"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
