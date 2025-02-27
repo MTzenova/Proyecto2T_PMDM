@@ -1,20 +1,22 @@
 package com.example.proyecto2t_pmdm.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentLoginBinding
-import com.example.proyecto2t_pmdm.viewmodels.SharedViewModel
+import com.example.proyecto2t_pmdm.viewmodels.LoginViewModel
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +44,7 @@ class LoginFragment : Fragment() {
     interface OnFragmentChangeListener { fun onFragmentChangeLogin() }
 
     //ViewModel para pasar información entre Fragments
-    private lateinit var viewModel: SharedViewModel
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +66,35 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         listener = activity as OnFragmentChangeListener
 
+        //desactivar botón de login
+        binding.button.isEnabled = false
+
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+
+        //configurar observadores
+        viewModel.loginEnable.observe(viewLifecycleOwner, Observer { success ->
+            if(success){
+                binding.button.isEnabled = true
+                binding.button.alpha = 1f
+            }else{
+                binding.button.isEnabled = false
+                binding.button.alpha = 0.5f
+            }
+        })
+
+        binding.campoCorreo.doOnTextChanged{text, _, _, _ ->
+            viewModel.onEmailChanged(text?.toString()?:"")
+            viewModel.onLoginEnableChanged()
+        }
+
+        binding.campoContrasenya.doOnTextChanged{text, _, _, _ ->
+            viewModel.onPasswordChanged(text?.toString()?:"")
+            viewModel.onLoginEnableChanged()
+        }
+
+        //boton de iniciar sesion
         binding.button.setOnClickListener {
+
             val contrasenyaHelper = binding.campoContrasenya.text.toString()
             val correoElectronico = binding.campoCorreo.text.toString()
             var bien = true
@@ -84,11 +114,21 @@ class LoginFragment : Fragment() {
             }else {
                 binding.outlinedTextField2.error = null
             }
+
             if(bien){
                 val snackLogin = Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
-                //al pulsar el botón de iniciar sesion, nos carga el fragment de favoritos
-                //cargarFragment(FavoritosFragment())
-                findNavController().navigate(R.id.action_loginFragment2_to_scaffoldFragment3)
+
+                auth = FirebaseAuth.getInstance()
+                auth
+                    .signInWithEmailAndPassword(binding.campoCorreo.text.toString(), binding.campoContrasenya.text.toString())
+                    .addOnSuccessListener {
+                        // Si el login es exitoso, pasamos a otro fragment
+                        findNavController().navigate(R.id.action_loginFragment2_to_scaffoldFragment3)
+                    }
+                    .addOnFailureListener { exception ->
+                        // En caso de error, mostramos el mensaje con un Toast
+                        Toast.makeText(requireContext(), exception.message, Toast.LENGTH_SHORT).show() //formato de contraseña inválido???
+                    }
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {
@@ -96,6 +136,8 @@ class LoginFragment : Fragment() {
                 }
                 snackError.show()
             }
+
+
         }
 
         binding.noRecordar.setOnClickListener ()

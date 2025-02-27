@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentContactoBinding
-import com.example.proyecto2t_pmdm.viewmodels.SharedViewModel
+import com.example.proyecto2t_pmdm.viewmodels.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -29,7 +29,7 @@ class ContactoFragment : Fragment() {
         fun onFragmentChange(fragment: Fragment?)
     }
 
-    private lateinit var viewModel: SharedViewModel
+    private lateinit var viewModel: LoginViewModel
 
     override fun onDetach()
     {
