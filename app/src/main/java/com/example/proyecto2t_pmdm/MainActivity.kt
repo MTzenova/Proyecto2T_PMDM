@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.example.proyecto2t_pmdm.clases.ViewPagerAdapter
 import com.example.proyecto2t_pmdm.databinding.ActivityMainBinding
 import com.example.proyecto2t_pmdm.fragments.LoginFragment
 import com.example.proyecto2t_pmdm.fragments.RegisterFragment
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
         binding = ActivityMainBinding.inflate(layoutInflater) //infla al vista utilizando la clase de vinculación
 
         setContentView(binding.root)
+
         //cargamos el fragment del login primero
         if(savedInstanceState == null) {
             val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment

@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.LayoutItemBinding
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
 
-class ItemAdapter(private val context: Context, private val items:List<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private val context: Context, private var items:List<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     //Creamos el ViewHolder
     class ItemViewHolder(private val binding: LayoutItemBinding):RecyclerView.ViewHolder(binding.root){
@@ -39,6 +42,13 @@ class ItemAdapter(private val context: Context, private val items:List<Item>):Re
                     binding.botonFav.setImageResource(R.drawable.fav_selected)
                 }
                 data.fav = !data.fav
+
+                //Actualizar BBDD
+                val db = com.google.firebase.ktx.Firebase.firestore
+
+                db.collection("amigos")
+                    .document(data.nombre)
+                    .update("fav", data.fav)
             }
         }
     }
@@ -57,6 +67,11 @@ class ItemAdapter(private val context: Context, private val items:List<Item>):Re
     //Asignamos los valores de los datos a cada vista
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(items[position])
+    }
+
+    fun updateList(newList: List<Item>){
+        items = newList
+        notifyDataSetChanged()
     }
 
 }

@@ -60,6 +60,10 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
     //Agregar la dependencia para Firebase Authentication
     implementation ("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    //Analytics
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     //Agregar la dependencia para Google Play services si vas a usar autenticación con Google
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     // Agregar la dependencia para Credential Manager

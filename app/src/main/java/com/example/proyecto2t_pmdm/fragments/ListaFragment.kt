@@ -1,28 +1,110 @@
 package com.example.proyecto2t_pmdm.fragments
 
+import android.net.http.HttpException
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentListaBinding
+import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListaFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ListaFragment : Fragment() {
     private lateinit var binding:FragmentListaBinding
+    private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
-    private var currentList = mutableListOf<Item>()
-    //meter firebase
+
+    private fun performSearch(query:String) {
+        val filteredList = amigosList.filter{item-> item.nombre.contains(query,ignoreCase = true)}
+        adapter.updateList(filteredList)
+    }
+
+    private suspend fun cargarAmigos()
+    {
+        //cargar datos de la bbdd
+        FirebaseApp.initializeApp(requireContext().applicationContext)
+        val db = Firebase.firestore
+        amigosList.clear()
+
+        withContext(Dispatchers.Main) {
+            //ocultar recyclerview
+            binding.rvLista.visibility = View.GONE
+            //leer amigos desde firebase
+        binding.progressBar.visibility = View.VISIBLE
+        }
+
+        db.collection("amigos")
+            .get()
+            .addOnSuccessListener {
+                    result ->
+                for (document in result) {
+                    val fav = document.get("fav") as Boolean
+                    val nombre = Item(document.id.toInt(),
+                        document.get("nombre").toString(),
+                        document.get("estado").toString(),
+                        document.get("disponibilidad").toString(),
+                        fav)
+                    amigosList.add(nombre)
+                }
+            }
+            .addOnFailureListener {  }
+            for(i in 1..100){
+                delay(50)
+                binding.progressBar.progress = i
+            }
+
+        withContext(Dispatchers.Main) {
+            binding.progressBar.visibility = View.GONE
+            //mostrar recyclerView
+            binding.rvLista.visibility = View.VISIBLE
+        }
+    }
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    override fun onResume()
+    {
+        super.onResume()
+
+        CoroutineScope(Dispatchers.IO).launch{
+            try {
+                async{cargarAmigos()}.await()
+            }
+            catch (e: HttpException){
+                //manejo de error http
+                withContext(Dispatchers.Main){
+                    //mostrar mensaje de error
+                    Toast.makeText(requireContext(),"Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }catch (e: Exception) {
+                // Manejo de otros errores
+                withContext(Dispatchers.Main) {
+                    // Mostrar un mensaje de error al usuario
+                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } finally
+            {
+                withContext(Dispatchers.Main)
+                {
+                    adapter = ItemAdapter(requireContext(), amigosList)
+                    binding.rvLista.adapter = adapter
+                    adapter.notifyDataSetChanged()
+
+                }
+            }
+        }
+    }
+
+    //@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +120,20 @@ class ListaFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar,menu)
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
+
+
+//    private fun getAmigos(){
+//
+//    }
 
 //        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {

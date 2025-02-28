@@ -116,7 +116,7 @@
     </androidx.cardview.widget.CardView>
     <ImageView
             android:layout_width="290dp"
-            android:layout_height="264dp"
+            android:layout_height="224dp"
             app:srcCompat="@drawable/maps"
             android:id="@+id/imageView11"
             app:layout_constraintBottom_toBottomOf="parent"
