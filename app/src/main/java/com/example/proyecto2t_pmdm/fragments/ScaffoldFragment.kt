@@ -9,12 +9,11 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.viewpager2.widget.ViewPager2
 import com.example.proyecto2t_pmdm.R
-import com.example.proyecto2t_pmdm.clases.ViewPagerAdapter
+
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
 import com.google.android.material.search.SearchView
-import com.google.android.material.tabs.TabLayoutMediator
+
 
 class ScaffoldFragment : Fragment() {
     private lateinit var binding: FragmentScaffoldBinding
@@ -35,21 +34,6 @@ class ScaffoldFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         /* TOOLBAR */
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-
-        //para las tabs
-        val adapter = ViewPagerAdapter(requireActivity())
-        binding.viewPager.adapter = adapter
-
-        TabLayoutMediator(binding.tabLayout, binding.viewPager)
-        {
-                tab, position ->    tab.text = when (position)
-            {
-                0 -> getString(R.string.lista_amigos)
-                1 -> getString(R.string.favoritos)
-                else -> ""
-            }
-        }.attach()
-
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider{

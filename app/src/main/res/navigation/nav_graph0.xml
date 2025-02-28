@@ -11,4 +11,6 @@
               tools:layout="@layout/fragment_favoritos"/>
     <fragment android:id="@+id/listaFragment" android:name="com.example.proyecto2t_pmdm.fragments.ListaFragment"
               android:label="fragment_lista" tools:layout="@layout/fragment_lista"/>
+    <fragment android:id="@+id/tabFragment" android:name="com.example.proyecto2t_pmdm.fragments.TabFragment"
+              android:label="fragment_tab" tools:layout="@layout/fragment_tab"/>
 </navigation>

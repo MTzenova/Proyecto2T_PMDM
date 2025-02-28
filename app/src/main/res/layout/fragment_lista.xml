@@ -14,30 +14,9 @@
             android:id="@+id/mainLayout"
             android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/appBarLayout">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:titleTextColor="@android:color/black"
-                    app:subtitleTextColor="@android:color/black"
-                    app:navigationIconTint="@android:color/black"
-                    app:menu="@menu/toolbar"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
                 tools:listitem="@layout/layout_item"
                 android:id="@+id/rvLista"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,10 +31,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:id="@+id/progressBar"
-                android:layout_marginTop="68dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appBarLayout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:visibility="visible"/>
 

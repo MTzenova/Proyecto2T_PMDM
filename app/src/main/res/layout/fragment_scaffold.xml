@@ -29,27 +29,6 @@
                     android:layout_height="?attr/actionBarSize"
                     app:menu="@menu/toolbar"
                     app:title="@string/app_name"/>
-
-            <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/tabLayout">
-
-                <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Monday"/>
-
-                <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tuesday"/>
-
-                <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Wednesday"/>
-            </com.google.android.material.tabs.TabLayout>
-
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
@@ -80,10 +59,6 @@
                     app:menu="@menu/bnm"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/viewPager"/>
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
