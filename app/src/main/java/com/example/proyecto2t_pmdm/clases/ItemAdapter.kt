@@ -34,7 +34,7 @@ class ItemAdapter(private val context: Context, private var items:List<Item>):Re
                 binding.botonFav.setImageResource(R.drawable.fav_unselected) //Si no es favorito
             }
 
-            //Evento para cuando ahcemos click
+            //Evento para cuando hacemos click
             binding.botonFav.setOnClickListener {
                 if(data.fav){
                     binding.botonFav.setImageResource(R.drawable.fav_unselected)

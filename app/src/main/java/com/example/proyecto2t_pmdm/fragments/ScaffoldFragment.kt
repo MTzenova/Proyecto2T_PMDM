@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.clases.ViewPagerAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
+import com.google.android.material.search.SearchView
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ScaffoldFragment : Fragment() {
@@ -54,6 +55,9 @@ class ScaffoldFragment : Fragment() {
         menuHost.addMenuProvider(object : MenuProvider{
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar,menu)
+
+                val searchItem = menu.findItem(R.id.action_search)
+                val searchView = searchItem?.actionView as SearchView
             }
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {

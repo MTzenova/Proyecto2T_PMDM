@@ -14,12 +14,15 @@ import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentListaBinding
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.*
 
 
 class ListaFragment : Fragment() {
     private lateinit var binding:FragmentListaBinding
+    val db = Firebase.firestore
+    private lateinit var auth: FirebaseAuth
     private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
 
@@ -48,10 +51,10 @@ class ListaFragment : Fragment() {
                     result ->
                 for (document in result) {
                     val fav = document.get("fav") as Boolean
-                    val amigo = Item(0,
-                        document.get("nombre").toString(),
-                        document.get("estado").toString(),
-                        document.get("disponibilidad").toString(),
+                    val amigo = Item(document.id.toInt(),0,
+                        document.get("nombre") as String,
+                        document.get("estado") as String,
+                        document.get("disponibilidad") as String,
                         fav)
                     amigosList.add(amigo)
                 }
@@ -154,6 +157,8 @@ class ListaFragment : Fragment() {
             }
 
             binding.swipeRefreshLayout.isRefreshing = false
+
+
 
         }
 
