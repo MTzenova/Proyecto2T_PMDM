@@ -4,10 +4,10 @@ import android.net.http.HttpException
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
@@ -48,25 +48,28 @@ class ListaFragment : Fragment() {
                     result ->
                 for (document in result) {
                     val fav = document.get("fav") as Boolean
-                    val nombre = Item(document.id.toInt(),
+                    val amigo = Item(0,
                         document.get("nombre").toString(),
                         document.get("estado").toString(),
                         document.get("disponibilidad").toString(),
                         fav)
-                    amigosList.add(nombre)
+                    amigosList.add(amigo)
                 }
             }
             .addOnFailureListener {  }
-            for(i in 1..100){
-                delay(50)
-                binding.progressBar.progress = i
-            }
 
-        withContext(Dispatchers.Main) {
-            binding.progressBar.visibility = View.GONE
-            //mostrar recyclerView
-            binding.rvLista.visibility = View.VISIBLE
+            for(i in 1..100){
+            delay(50)
+            binding.progressBar.progress = i
+
+            withContext(Dispatchers.Main)
+            {
+                binding.progressBar.visibility = ProgressBar.GONE
+                //Mostrar el RecyclerView
+                binding.rvLista.visibility = View.VISIBLE
+            }
         }
+
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -102,10 +105,6 @@ class ListaFragment : Fragment() {
             }
         }
     }
-
-    //@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -119,9 +118,49 @@ class ListaFragment : Fragment() {
         binding = FragmentListaBinding.inflate(inflater,container,false)
         return binding.root
     }
-
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try
+                {
+                    async { cargarAmigos() }.await()
+                }
+                catch (e: HttpException) {
+                    // Manejo del error HTTP
+                    withContext(Dispatchers.Main) {
+                        // Mostrar un mensaje de error al usuario
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+                } catch (e: Exception) {
+                    // Manejo de otros errores
+                    withContext(Dispatchers.Main) {
+                        // Mostrar un mensaje de error al usuario
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+                } finally
+                {
+                    withContext(Dispatchers.Main)
+                    {
+                        adapter = ItemAdapter(requireContext(), amigosList)
+                        binding.rvLista.adapter = adapter
+                        adapter.notifyDataSetChanged()
+
+                    }
+                }
+
+            }
+
+            binding.swipeRefreshLayout.isRefreshing = false
+
+        }
+
+        binding.fab.setOnClickListener {
+            //val alertDialog = AlertFragment()
+            //alertDialog.show(supportFragmentManager, "FormDialogFragment")
+        }
 
     }
 

@@ -58,7 +58,11 @@
     <string name="favoritos">"Favoritos"</string>
     <string name="informacion">"Información"</string>
     <string name="opciones">"Opciones"</string>
-    <string name="iniciar_sesion_rf"><u>Iniciar sesión</u></string>
+    <string name="iniciar_sesion_rf">
+        <u>Iniciar sesión</u>
+    </string>
     <string name="buscar_drawer">"Buscar"</string>
-    <string name="web_client_id" translatable="false">724103128954-vd4qa9iq4mdd4i9fvqvn2g0gn6vt4s2l.apps.googleusercontent.com</string>
+    <string name="web_client_id" translatable="false">
+        724103128954-vd4qa9iq4mdd4i9fvqvn2g0gn6vt4s2l.apps.googleusercontent.com
+    </string>
 </resources>
