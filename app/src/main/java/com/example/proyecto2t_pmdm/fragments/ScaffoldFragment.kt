@@ -12,12 +12,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.example.proyecto2t_pmdm.R
 import androidx.appcompat.widget.SearchView
+import com.example.proyecto2t_pmdm.clases.Item
+import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
 
 
 
 class ScaffoldFragment : Fragment() {
     private lateinit var binding: FragmentScaffoldBinding
+    private  var amigos: MutableList<Item> = mutableListOf()
+    private lateinit var adaptader: ItemAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,6 +39,11 @@ class ScaffoldFragment : Fragment() {
     //funcion para buscar
     private fun buscar(query:String){
         Toast.makeText(activity,"Buscando $query", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun performSearch(query:String){
+        val filteredList = amigos.filter{item-> item.nombre.contains(query,ignoreCase = true)}
+        adaptader.updateList(filteredList)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +70,9 @@ class ScaffoldFragment : Fragment() {
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        return true //este es para filtrar en tiempo real mientras escribe
+                        //este es para filtrar en tiempo real mientras escribe
+                        newText?.let { performSearch(it) }
+                        return true
                     }
                 })
             }
