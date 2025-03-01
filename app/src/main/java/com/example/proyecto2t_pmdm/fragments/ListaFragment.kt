@@ -9,26 +9,37 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.alert.AlertFragment
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentListaBinding
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
 class ListaFragment : Fragment() {
     private lateinit var binding: FragmentListaBinding
-    private lateinit var auth: FirebaseAuth
     private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
+    val db = Firebase.firestore
 
     private fun performSearch(query: String) {
         val filteredList = amigosList.filter { item -> item.nombre.contains(query, ignoreCase = true) }
         adapter.updateList(filteredList)
+    }
+
+    private fun showRecyclerView()
+    {
+        adapter = ItemAdapter(mutableListOf())
+        binding.rvLista.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvLista.adapter = adapter
+
     }
 
     private suspend fun cargarAmigos() {
@@ -72,7 +83,7 @@ class ListaFragment : Fragment() {
             binding.rvLista.visibility = View.VISIBLE
 
             // Actualizar el adaptador
-            adapter = ItemAdapter(requireContext(), amigosList)
+            adapter = ItemAdapter(amigosList)
             binding.rvLista.adapter = adapter
             adapter.notifyDataSetChanged()
         }
@@ -109,7 +120,9 @@ class ListaFragment : Fragment() {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.rvLista.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        showRecyclerView()
         // Configurar el SwipeRefreshLayout
         binding.swipeRefreshLayout.setOnRefreshListener {
             CoroutineScope(Dispatchers.IO).launch {

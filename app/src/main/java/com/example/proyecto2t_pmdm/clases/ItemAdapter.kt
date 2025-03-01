@@ -13,7 +13,7 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 
-class ItemAdapter(private val context: Context, private var items:MutableList<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     private var itemsLista:List<Item> = ArrayList(items)
     private var auth: FirebaseAuth = Firebase.auth
