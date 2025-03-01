@@ -50,13 +50,12 @@ class LoginFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         binding = FragmentLoginBinding.inflate(layoutInflater) //Infla la vista utilizando la clase de vinculación
-        val view = binding.root
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
@@ -116,7 +115,7 @@ class LoginFragment : Fragment() {
             }
 
             if(bien){
-                val snackLogin = Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
 
                 auth = FirebaseAuth.getInstance()
                 auth
@@ -152,7 +151,7 @@ class LoginFragment : Fragment() {
 
         //boton no tener cuenta -- lleva a register
         binding.noCuenta.setOnClickListener{
-            val snackNoCuenta = Snackbar.make(binding.root, R.string.snackbar_no_cuenta, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.snackbar_no_cuenta, Snackbar.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2)
         }
 
@@ -163,24 +162,18 @@ class LoginFragment : Fragment() {
 
         binding.button3.setOnClickListener()
         {
-            val snackLoginFacebook = Snackbar.make(binding.root, R.string.snackbar_iniciar_facebook, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.snackbar_iniciar_facebook, Snackbar.LENGTH_LONG).show()
         }
 
 
 
     }
 
-    private fun cargarFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment).commit()
-    }
+//    private fun cargarFragment(fragment: Fragment) {
+//        parentFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment).commit()
+//    }
 
-    override fun onDestroyView()
-    {
-        super.onDestroyView()
-        //_binding = null
-    }
-
-    fun signInWithGoogle(){
+    private fun signInWithGoogle(){
         val auth = FirebaseAuth.getInstance() //si no inicio esto aquí, no me inicia sesiñón
 
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
@@ -245,14 +238,14 @@ class LoginFragment : Fragment() {
 
 
     companion object {
-       //patron singleton
-        private var instance: LoginFragment? = null
-        fun getInstance(): LoginFragment {
-            if (instance == null) {
-                instance = LoginFragment()
-            }
-            return instance!!
-        }
+//       //patron singleton
+//        private var instance: LoginFragment? = null
+//        fun getInstance(): LoginFragment {
+//            if (instance == null) {
+//                instance = LoginFragment()
+//            }
+//            return instance!!
+//        }
 
     }
 }

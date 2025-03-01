@@ -16,7 +16,6 @@ import androidx.appcompat.widget.SearchView
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -25,11 +24,6 @@ class ScaffoldFragment : Fragment() {
     private  var amigos: MutableList<Item> = mutableListOf()
     private lateinit var adaptader: ItemAdapter
     private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     private fun obtenerNombre(){
         auth = FirebaseAuth.getInstance()
@@ -45,7 +39,7 @@ class ScaffoldFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View?{
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View{
         // Inflate the layout
         binding = FragmentScaffoldBinding.inflate(inflater, container, false)
         adaptader = ItemAdapter(amigos) // Inicializa adaptador aquí

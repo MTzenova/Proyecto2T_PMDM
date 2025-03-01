@@ -1,7 +1,7 @@
 package com.example.proyecto2t_pmdm.fragments
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,15 +37,16 @@ class RegisterFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         binding = FragmentRegisterBinding.inflate(layoutInflater)
-        val view = binding.root
+        binding.root
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listener = activity as OnFragmentChangeListener
@@ -113,7 +114,7 @@ class RegisterFragment : Fragment() {
                 binding.nombreUsuarioRa.error = null
             }
             if (bien){
-                val snackRegister = Snackbar.make(binding.root, R.string.snackbar_registrarse_ra, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, R.string.snackbar_registrarse_ra, Snackbar.LENGTH_LONG).show()
 
                 findNavController().navigate(R.id.action_registerFragment2_to_scaffoldFragment3)
 
@@ -163,26 +164,20 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView()
-    {
-        super.onDestroyView()
-        //binding = null
-    }
-
     companion object {
         //Patrón Singleton
-        private var instance: RegisterFragment? = null
+        //private var instance: RegisterFragment? = null
 
-        fun getInstance(): RegisterFragment
-        {
-
-            if (instance == null)
-            {
-                instance = RegisterFragment()
-            }
-
-            return instance!!
-        }
+//        fun getInstance(): RegisterFragment
+//        {
+//
+//            if (instance == null)
+//            {
+//                instance = RegisterFragment()
+//            }
+//
+//            return instance!!
+//        }
 
     }
 }

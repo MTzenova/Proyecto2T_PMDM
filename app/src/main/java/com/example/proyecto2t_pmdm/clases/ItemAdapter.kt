@@ -1,6 +1,5 @@
 package com.example.proyecto2t_pmdm.clases
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.LayoutItemBinding
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
@@ -16,12 +14,11 @@ import com.google.firebase.firestore.firestore
 class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     private var itemsLista:List<Item> = ArrayList(items)
-    private var auth: FirebaseAuth = Firebase.auth
 
     //Inflamos el layout para cada item, es decir, cargamos la vista gráfica de las cuadrículas de la vista
     override fun onCreateViewHolder(parent:ViewGroup, viewType:Int): ItemViewHolder {
         val binding = LayoutItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return ItemViewHolder(binding,auth)
+        return ItemViewHolder(binding)
     }
 
     //Asignamos los valores de los datos a cada vista
@@ -36,7 +33,7 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
 
 
     //Creamos el ViewHolder
-    class ItemViewHolder(private val binding: LayoutItemBinding, auth: FirebaseAuth):RecyclerView.ViewHolder(binding.root){
+    class ItemViewHolder(private val binding: LayoutItemBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data:Item){
             //Acceder a las vistas directamente a través del binding
             binding.nombreRv.text = data.nombre

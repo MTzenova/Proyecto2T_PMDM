@@ -12,31 +12,18 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentContactoBinding
-import com.example.proyecto2t_pmdm.viewmodels.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ContactoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ContactoFragment : Fragment() {
-    private val CALL_PHONE_PERMISSION_REQUEST = 123
+    private val permisoLlamada = 123
     private lateinit var binding: FragmentContactoBinding
     private var listener: LoginFragment.OnFragmentChangeListener? = null
 
-    interface OnFragmentChangeListener {
-        fun onFragmentChange(fragment: Fragment?)
-    }
+//    interface OnFragmentChangeListener {
+//        fun onFragmentChange(fragment: Fragment?)
+//    }
 
-    private lateinit var viewModel: LoginViewModel
-
-    override fun onDetach()
-    {
-        super.onDetach()
-        //listener = null
-    }
-
+//    private lateinit var viewModel: LoginViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +33,7 @@ class ContactoFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentContactoBinding.inflate(layoutInflater)
         return binding.root
@@ -74,7 +61,7 @@ class ContactoFragment : Fragment() {
 
                 else
                     ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CALL_PHONE),
-                        CALL_PHONE_PERMISSION_REQUEST)
+                        permisoLlamada)
             }
         }
 
@@ -128,19 +115,19 @@ class ContactoFragment : Fragment() {
 //        parentFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment).commit()
 //    }
 
-    companion object {
-        //Patrón Singleton
-        private var instance: ContactoFragment? = null
-
-        fun getInstance(): ContactoFragment
-        {
-
-            if (instance == null)
-            {
-                instance = ContactoFragment()
-            }
-
-            return instance!!
-        }
-    }
+//    companion object {
+//        //Patrón Singleton
+//        private var instance: ContactoFragment? = null
+//
+//        fun getInstance(): ContactoFragment
+//        {
+//
+//            if (instance == null)
+//            {
+//                instance = ContactoFragment()
+//            }
+//
+//            return instance!!
+//        }
+//    }
 }

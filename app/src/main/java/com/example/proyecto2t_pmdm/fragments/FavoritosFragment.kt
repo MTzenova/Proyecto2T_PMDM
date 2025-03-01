@@ -5,21 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentFavoritosBinding
-import com.google.firebase.Firebase
-import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
@@ -37,12 +29,7 @@ class FavoritosFragment : Fragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
         binding = FragmentFavoritosBinding.inflate(inflater,container,false)
         db = FirebaseFirestore.getInstance()
@@ -134,19 +121,19 @@ class FavoritosFragment : Fragment() {
 
     companion object
     {
-        //Patrón Singleton
-        private var instance: FavoritosFragment? = null
-
-        fun getInstance(): FavoritosFragment
-        {
-
-            if (instance == null)
-            {
-                instance = FavoritosFragment()
-            }
-
-            return instance!!
-        }
+//        //Patrón Singleton
+//        private var instance: FavoritosFragment? = null
+//
+//        fun getInstance(): FavoritosFragment
+//        {
+//
+//            if (instance == null)
+//            {
+//                instance = FavoritosFragment()
+//            }
+//
+//            return instance!!
+//        }
     }
 
 }

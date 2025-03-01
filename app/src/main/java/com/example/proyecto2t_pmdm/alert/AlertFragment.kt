@@ -1,5 +1,6 @@
 package com.example.proyecto2t_pmdm.alert
 
+//noinspection SuspiciousImport
 import android.R
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.DialogFragment
 import com.example.proyecto2t_pmdm.databinding.FragmentAlertBinding
 import com.google.firebase.firestore.ktx.firestore

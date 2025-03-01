@@ -17,11 +17,8 @@ import com.example.proyecto2t_pmdm.alert.AlertFragment
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentListaBinding
-import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
@@ -29,7 +26,6 @@ class ListaFragment : Fragment(){
     private lateinit var binding: FragmentListaBinding
     private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
-    val db = Firebase.firestore
 
     private fun performSearch(query: String) {
         val filteredList = amigosList.filter { item -> item.nombre.contains(query, ignoreCase = true) }
@@ -114,7 +110,7 @@ class ListaFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentListaBinding.inflate(inflater, container, false)
         return binding.root
     }
