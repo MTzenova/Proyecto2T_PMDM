@@ -2,6 +2,7 @@ package com.example.proyecto2t_pmdm.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,18 +16,32 @@ import androidx.appcompat.widget.SearchView
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
-
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ScaffoldFragment : Fragment() {
     private lateinit var binding: FragmentScaffoldBinding
     private  var amigos: MutableList<Item> = mutableListOf()
     private lateinit var adaptader: ItemAdapter
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
+    }
+
+    private fun obtenerNombre(){
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        if(user != null){
+            val nombre = user.displayName
+            if(nombre!=null){
+                val navigationView = binding.navigationView
+                val navHeaderView = navigationView.getHeaderView(0)
+                val nombreUsuario:TextView = navHeaderView.findViewById(R.id.nombreUsuarioCabecera)
+                nombreUsuario.text = nombre
+            }
         }
     }
 
@@ -34,7 +49,9 @@ class ScaffoldFragment : Fragment() {
         // Inflate the layout
         binding = FragmentScaffoldBinding.inflate(inflater, container, false)
         adaptader = ItemAdapter(amigos) // Inicializa adaptador aquí
-        //binding.rvLista.adapter = adaptader // Asegura que el RecyclerView use el adaptador
+
+        obtenerNombre()
+
         return binding.root
     }
 
