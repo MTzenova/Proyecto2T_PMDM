@@ -167,7 +167,7 @@ class RegisterFragment : Fragment() {
     companion object {
         //Patrón Singleton
         //private var instance: RegisterFragment? = null
-
+//aaaa
 //        fun getInstance(): RegisterFragment
 //        {
 //
