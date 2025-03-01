@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
 import com.example.proyecto2t_pmdm.R
+import com.example.proyecto2t_pmdm.alert.AlertFragment
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentListaBinding
@@ -162,9 +163,10 @@ class ListaFragment : Fragment() {
 
         }
 
+        //boton de añadir
         binding.fab.setOnClickListener {
-            //val alertDialog = AlertFragment()
-            //alertDialog.show(supportFragmentManager, "FormDialogFragment")
+            val alertDialog = AlertFragment()
+            alertDialog.show(requireActivity().supportFragmentManager, "FormDialogFragment")
         }
 
     }

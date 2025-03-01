@@ -25,8 +25,8 @@ class AlertFragment : DialogFragment() {
             val db = Firebase.firestore
 
             val amigo = hashMapOf(
-                "nombre" to binding.editTextId.text.toString(),
-                "estado" to binding.editTextName.text.toString(),
+                "id" to binding.editTextId.text.toString(),
+                "nombre" to binding.editTextName.text.toString(),
                 "fav" to false
             )
 
