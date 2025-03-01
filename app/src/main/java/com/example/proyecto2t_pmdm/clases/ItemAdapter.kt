@@ -22,10 +22,10 @@ class ItemAdapter(private val context: Context, private var items:List<Item>):Re
             binding.disponibilidadRv.text = data.disponibilidad
 
             //Para las fotos del recycler activity
-            Glide
-                .with(binding.root)
-                .load(data.foto)
-                .into(binding.fotoRv)
+//            Glide
+//                .with(binding.root)
+//                .load(data.foto)
+//                .into(binding.fotoRv)
 
             //Aquí cambiamos la imagen del icono de favorito según si lo marcamos o desmarcamos
             if(data.fav){

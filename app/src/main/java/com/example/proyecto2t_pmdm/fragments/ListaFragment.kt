@@ -39,6 +39,7 @@ class ListaFragment : Fragment() {
         val db = Firebase.firestore
         amigosList.clear()
 
+        //Se mete este bloque para q se ejecute en el hilo princpal, si no provoca excepcion
         withContext(Dispatchers.Main) {
             //ocultar recyclerview
             binding.rvLista.visibility = View.GONE
@@ -46,16 +47,16 @@ class ListaFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         }
 
-        db.collection("amigos")
+        db.collection("amigos") //esto me da excepción
             .get()
             .addOnSuccessListener {
                     result ->
                 for (document in result) {
                     val fav = document.get("fav") as Boolean
-                    val amigo = Item(document.id.toInt(),0,
-                        document.get("nombre") as String,
-                        document.get("estado") as String,
-                        document.get("disponibilidad") as String,
+                    val amigo = Item(document.id.hashCode(), //con hashcode no me da error
+                        document.get("usuario") as String,
+                        document.get("estado") as? String?: "¡Hola, estoy usando Android Messenger!", //por defecto desconectado si no se le asigna valor
+                        document.get("disponibilidad") as? String?: "Desconectado", //por defecto desconectado si no se le asigna valor
                         fav)
                     amigosList.add(amigo)
                 }

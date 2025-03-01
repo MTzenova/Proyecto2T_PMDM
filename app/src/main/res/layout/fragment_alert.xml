@@ -13,20 +13,13 @@
                 android:id="@+id/editTextId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Estado">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <AutoCompleteTextView
+            android:hint="Disponibilidad..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/disponibilidad_fa"/>
 
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -46,5 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enviar" android:layout_marginTop="8dp"/>
+
 
 </LinearLayout>

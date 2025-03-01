@@ -54,7 +54,7 @@ class FavoritosFragment : Fragment() {
     {
         super.onViewCreated(view, savedInstanceState)
 
-        progressBar = binding.progressBar
+        //progressBar = binding.progressBar
 
 //        GlobalScope.launch (Dispatchers.Main){
 //            showProgressBar()

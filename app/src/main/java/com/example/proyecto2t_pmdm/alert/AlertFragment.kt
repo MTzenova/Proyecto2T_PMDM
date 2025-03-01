@@ -1,10 +1,13 @@
 package com.example.proyecto2t_pmdm.alert
 
+import android.R
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.DialogFragment
 import com.example.proyecto2t_pmdm.databinding.FragmentAlertBinding
 import com.google.firebase.firestore.ktx.firestore
@@ -15,18 +18,24 @@ class AlertFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-
-        val builder = AlertDialog.Builder(requireActivity())
         binding = FragmentAlertBinding.inflate(layoutInflater)
 
+        val builder = AlertDialog.Builder(requireActivity())
+
+        //para la caja de disponibilidad
+        val opciones = arrayOf("Conectado", "Ocupado", "Ausente", "Desconectado")
+        val adapter = ArrayAdapter(binding.root.context, R.layout.simple_dropdown_item_1line, opciones)
+        binding.disponibilidadFa.setAdapter(adapter)
+
+        //boton enviar
         binding.buttonSubmit.setOnClickListener {
 
             //Actualizar BBDD
             val db = Firebase.firestore
 
             val amigo = hashMapOf(
-                "id" to binding.editTextId.text.toString(),
-                "nombre" to binding.editTextName.text.toString(),
+                "usuario" to binding.editTextId.text.toString(),
+                "disponibilidad" to binding.disponibilidadFa.text.toString(),
                 "fav" to false
             )
 

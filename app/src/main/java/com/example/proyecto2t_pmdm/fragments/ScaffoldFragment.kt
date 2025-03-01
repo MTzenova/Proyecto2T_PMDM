@@ -48,6 +48,8 @@ class ScaffoldFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adaptader = ItemAdapter(requireActivity(),amigos)//añadi esto ahora para intentar resolver error
+
         /* TOOLBAR */
         /* Establece la Toolbar como nueva ActionBar */
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
