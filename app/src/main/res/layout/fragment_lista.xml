@@ -40,13 +40,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                app:srcCompat="@android:drawable/ic_input_add"
+                app:srcCompat="@drawable/add_white"
                 android:id="@+id/fab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                app:backgroundTint="#BA68C8"/>
+                app:backgroundTint="#00BCD4" app:borderWidth="5dp" app:backgroundTintMode="add"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

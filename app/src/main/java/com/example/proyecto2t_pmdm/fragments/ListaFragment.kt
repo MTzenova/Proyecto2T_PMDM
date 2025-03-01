@@ -126,6 +126,8 @@ class ListaFragment : Fragment() {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.swipeRefreshLayout.setOnRefreshListener {
 
             CoroutineScope(Dispatchers.IO).launch {
