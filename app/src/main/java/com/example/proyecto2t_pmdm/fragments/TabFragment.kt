@@ -26,9 +26,7 @@ class TabFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentTabBinding.inflate(layoutInflater)
 
-        super.onCreate(savedInstanceState)
-
-        return inflater.inflate(R.layout.fragment_tab, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

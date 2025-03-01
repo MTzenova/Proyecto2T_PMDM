@@ -65,4 +65,11 @@
     <string name="web_client_id" translatable="false">
         724103128954-vd4qa9iq4mdd4i9fvqvn2g0gn6vt4s2l.apps.googleusercontent.com
     </string>
+    <string name="disponibilidad_fa">Disponibilidad...</string>
+    <string name="enviar_fa">Enviar</string>
+    <string name="correo_fa">Correo electrónico</string>
+    <string name="usuario_fa">Usuario</string>
+    <string name="agregar_fa">Agregar</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="salir">Cerrar sesión</string>
 </resources>

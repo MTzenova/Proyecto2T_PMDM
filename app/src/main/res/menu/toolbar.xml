@@ -4,20 +4,20 @@
     <item
             android:id="@+id/action_search"
             android:icon="@drawable/ic_search"
-            android:title="Search"
+            android:title="@string/buscar_drawer"
             app:showAsAction="ifRoom|collapseActionView"
             app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
             android:id="@+id/action_settings"
             android:icon="@drawable/ic_more_vert"
-            android:title="Settings"
+            android:title="@string/ajustes"
             app:showAsAction="ifRoom">
 
             <menu>
                 <item
                         android:id="@+id/subitem1"
-                        android:title="Subitem 1"/>
+                        android:title="@string/salir"/>
             </menu>
 
     </item>

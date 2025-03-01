@@ -46,7 +46,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                app:backgroundTint="#00BCD4" app:borderWidth="5dp" app:backgroundTintMode="add"/>
+                app:backgroundTint="#00BCD4" app:borderWidth="5dp" app:backgroundTintMode="add"
+                android:contentDescription="@string/agregar_fa"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

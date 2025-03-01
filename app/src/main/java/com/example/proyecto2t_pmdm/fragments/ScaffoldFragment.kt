@@ -108,6 +108,7 @@ class ScaffoldFragment : Fragment() {
             {
                 R.id.nav_home -> {
                     navController.navigate(R.id.listaFragment)
+                    //binding.drawerLayout.closeDrawer(GravityCompat.START) //para cerrar cuando clicas
                     true
                 }
 
@@ -142,7 +143,7 @@ class ScaffoldFragment : Fragment() {
                 }
                 R.id.bnm_notifications -> {
                     // Handle Notifications navigation
-                    navController.navigate(R.id.favoritosFragment2)
+                    navController.navigate(R.id.tabFragment)
                     true
                 }
                 //podemos añadir un boton para salir de la sesión
