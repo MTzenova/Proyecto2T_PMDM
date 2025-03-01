@@ -8,13 +8,35 @@ import com.bumptech.glide.Glide
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.LayoutItemBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.ktx.firestore
 
-class ItemAdapter(private val context: Context, private var items:List<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private val context: Context, private var items:MutableList<Item>):RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+
+    private var itemsLista:List<Item> = ArrayList(items)
+    private var auth: FirebaseAuth = Firebase.auth
+
+    //Inflamos el layout para cada item, es decir, cargamos la vista gráfica de las cuadrículas de la vista
+    override fun onCreateViewHolder(parent:ViewGroup, viewType:Int): ItemViewHolder {
+        val binding = LayoutItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ItemViewHolder(binding,auth)
+    }
+
+    //Asignamos los valores de los datos a cada vista
+    override fun onBindViewHolder(holder:ItemViewHolder, position: Int) {
+        holder.bind(itemsLista[position])
+    }
+
+    //Devuelve el tamaño de la lista
+    override fun getItemCount(): Int {
+        return items.size
+    }
+
 
     //Creamos el ViewHolder
-    class ItemViewHolder(private val binding: LayoutItemBinding):RecyclerView.ViewHolder(binding.root){
+    class ItemViewHolder(private val binding: LayoutItemBinding, auth: FirebaseAuth):RecyclerView.ViewHolder(binding.root){
         fun bind(data:Item){
             //Acceder a las vistas directamente a través del binding
             binding.nombreRv.text = data.nombre
@@ -22,10 +44,10 @@ class ItemAdapter(private val context: Context, private var items:List<Item>):Re
             binding.disponibilidadRv.text = data.disponibilidad
 
             //Para las fotos del recycler activity
-//            Glide
-//                .with(binding.root)
-//                .load(data.foto)
-//                .into(binding.fotoRv)
+            Glide
+                .with(binding.root.context)
+                .load(data.foto)
+                .into(binding.fotoRv)
 
             //Aquí cambiamos la imagen del icono de favorito según si lo marcamos o desmarcamos
             if(data.fav){
@@ -44,33 +66,31 @@ class ItemAdapter(private val context: Context, private var items:List<Item>):Re
                 data.fav = !data.fav
 
                 //Actualizar BBDD
-                val db = com.google.firebase.ktx.Firebase.firestore
+                val db = Firebase.firestore
 
                 db.collection("amigos")
                     .document(data.nombre)
                     .update("fav", data.fav)
+                    .addOnSuccessListener {
+                        val usuario = Firebase.auth.currentUser?.email.toString()
+                        val usuarioDoc = db.collection("usuarios").document(usuario)
+                        if(data.fav){
+                            usuarioDoc.update("nFav", FieldValue.arrayRemove(data.id))
+                        }else{
+                            usuarioDoc.update("nFav", FieldValue.arrayRemove(data.id))
+                        }
+                    }
+                    .addOnFailureListener {
+                        exception -> exception.printStackTrace()
+                    }
             }
         }
     }
 
-    //Inflamos el layout para cada item, es decir, cargamos la vista gráfica de las cuadrículas de la vista
-    override fun onCreateViewHolder(parent:ViewGroup, viewType:Int): ItemViewHolder {
-        val binding = LayoutItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return ItemViewHolder(binding)
-    }
-
-    //Devuelve el tamaño de la lista
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-    //Asignamos los valores de los datos a cada vista
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
     fun updateList(newList: List<Item>){
-        items = newList
+        items.clear()
+        items.addAll(newList)
+        itemsLista = ArrayList(newList)
         notifyDataSetChanged()
     }
 

@@ -21,10 +21,11 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentChangeListener
         setContentView(binding.root)
 
         //cargamos el fragment del login primero
-        if(savedInstanceState == null) {
-            val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
-            val navController = navHostFragment.navController
-        }
+//        if(savedInstanceState == null) {
+//            val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+//            val navController = navHostFragment.navController
+//
+//        }
     }
 
     override fun onFragmentChangeLogin(){
