@@ -33,6 +33,8 @@ class ScaffoldFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View?{
         // Inflate the layout
         binding = FragmentScaffoldBinding.inflate(inflater, container, false)
+        adaptader = ItemAdapter(amigos) // Inicializa adaptador aquí
+        //binding.rvLista.adapter = adaptader // Asegura que el RecyclerView use el adaptador
         return binding.root
     }
 
@@ -44,11 +46,13 @@ class ScaffoldFragment : Fragment() {
     private fun performSearch(query:String){
         val filteredList = amigos.filter{item-> item.nombre.contains(query,ignoreCase = true)}
         adaptader.updateList(filteredList)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adaptader = ItemAdapter(amigos)//añadi esto ahora para intentar resolver error
+
 
         /* TOOLBAR */
         /* Establece la Toolbar como nueva ActionBar */

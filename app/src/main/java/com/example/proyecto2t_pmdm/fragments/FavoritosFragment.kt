@@ -1,11 +1,13 @@
 package com.example.proyecto2t_pmdm.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,25 +16,26 @@ import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentFavoritosBinding
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 
 class FavoritosFragment : Fragment() {
-    private lateinit var progressBar: ProgressBar
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: FragmentFavoritosBinding
+    private lateinit var db: FirebaseFirestore
     private lateinit var adapter: ItemAdapter
-    private lateinit var db:FirebaseFirestore
-    private var listaAmigos = mutableListOf<Item>()
-    private var listaFavoritos = mutableListOf<Int>()
-    private lateinit var auth: FirebaseAuth
+    private lateinit var listaFav: MutableList<Item>
 
-    private var _binding: FragmentFavoritosBinding?=null
-    private val binding get() = _binding!!
+    private fun showRecyclerView()
+    {
+        adapter = ItemAdapter(mutableListOf())
+        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+        binding.rv.adapter = adapter
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -41,10 +44,13 @@ class FavoritosFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        _binding = FragmentFavoritosBinding.inflate(layoutInflater)
+        binding = FragmentFavoritosBinding.inflate(inflater,container,false)
+        db = FirebaseFirestore.getInstance()
+        listaFav = mutableListOf()
 
-        auth = FirebaseAuth.getInstance()
-        db = Firebase.firestore
+        adapter = ItemAdapter(listaFav)
+        binding.rv.adapter = adapter
+
 
 
         return binding.root
@@ -53,9 +59,11 @@ class FavoritosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-
-        //progressBar = binding.progressBar
-
+        binding.rv.visibility = View.GONE
+        showRecyclerView()
+        CoroutineScope(Dispatchers.IO).launch {
+            loadFavorites()
+        }
 //        GlobalScope.launch (Dispatchers.Main){
 //            showProgressBar()
 //        }
@@ -83,23 +91,46 @@ class FavoritosFragment : Fragment() {
 //        reciclerView.adapter = ItemAdapter(requireContext(), contactosList)
    }
 
-    override fun onDestroyView()
-    {
-        super.onDestroyView()
-        _binding = null
-    }
+    private suspend fun loadFavorites() {
+        listaFav.clear()
 
-//    private fun loadFav()
-//    {
-//        val user = auth.currentUser?.email?:return
-//
-//        db.collection("usuarios").document(user).get().addOnSuccessListener {
-//            document ->
-//            if(document.exists()){
-//                listaFavoritos = (document.get("fav" as? List<Long>)?.map() { it.toInt() }?.toMutableList() ?: mutableListOf()
-//            }
-//        }
-//    }
+        withContext(Dispatchers.Main) {
+            binding.rv.visibility = View.GONE
+        }
+
+        try {
+            val result = db.collection("amigos")
+                .whereEqualTo("fav", true)
+                .get().await()
+            for (document in result) {
+                val fav = document.get("fav") as Boolean
+                val amigo = Item(
+                    document.id.hashCode(), // Usando hashCode como ID no me da error
+                    document.get("foto") as? Int?: 0,
+                    document.get("usuario") as String,
+                    document.get("estado") as? String ?: "¡Hola, estoy usando Android Messenger!",
+                    document.get("disponibilidad") as? String ?: "Desconectado",
+                    fav
+                )
+                listaFav.add(amigo)
+            }
+
+            //actualizar
+            withContext(Dispatchers.Main) {
+                binding.rv.visibility = View.VISIBLE
+                // Actualizar el adaptador
+               adapter = ItemAdapter(listaFav)
+               binding.rv.adapter = adapter
+                adapter.notifyDataSetChanged()
+
+            }
+        } catch (e: Exception) {
+            Log.e("FirebaseError", "Error al obtener amigos: ", e)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
     companion object
     {
@@ -118,13 +149,4 @@ class FavoritosFragment : Fragment() {
         }
     }
 
-    private suspend fun showProgressBar() {
-        progressBar.visibility = android.view.View.VISIBLE
-
-        delay(3000)
-
-        progressBar.visibility = android.view.View.GONE
-
-
-    }
 }

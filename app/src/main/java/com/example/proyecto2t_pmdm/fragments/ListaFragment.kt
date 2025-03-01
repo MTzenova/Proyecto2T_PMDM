@@ -8,6 +8,8 @@ import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresExtension
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto2t_pmdm.R
@@ -23,7 +25,7 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
-class ListaFragment : Fragment() {
+class ListaFragment : Fragment(){
     private lateinit var binding: FragmentListaBinding
     private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
@@ -61,7 +63,7 @@ class ListaFragment : Fragment() {
             for (document in result) {
                 val fav = document.get("fav") as Boolean
                 val amigo = Item(
-                    document.id.hashCode(), // Usando hashCode como ID
+                    document.id.hashCode(), // Usando hashCode como ID no me da error
                     document.get("foto") as? Int?: 0,
                     document.get("usuario") as String,
                     document.get("estado") as? String ?: "¡Hola, estoy usando Android Messenger!",
@@ -152,12 +154,17 @@ class ListaFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar, menu)
-        val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
 
-        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        inflater.inflate(R.menu.toolbar, menu)
+        val searchItem = menu.findItem(R.id.action_search) //accedemos al elemento
+        val searchView = searchItem.actionView as SearchView
+        //searchView.setOnQueryTextListener(this)
+
+        searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    performSearch(it) // Realiza la búsqueda final
+                }
                 return false
             }
 
@@ -169,4 +176,12 @@ class ListaFragment : Fragment() {
             }
         })
     }
+
+//    override fun onQueryTextSubmit(p0: String?): Boolean {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun onQueryTextChange(p0: String?): Boolean {
+//        TODO("Not yet implemented")
+//    }
 }
