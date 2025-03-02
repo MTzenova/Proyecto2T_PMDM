@@ -1,11 +1,14 @@
 package com.example.proyecto2t_pmdm.fragments
 
+import android.net.http.HttpException
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto2t_pmdm.clases.Item
@@ -43,14 +46,32 @@ class FavoritosFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
         binding.rv.visibility = View.GONE
         showRecyclerView()
-        CoroutineScope(Dispatchers.IO).launch {
-            loadFavorites()
+        binding.swipeRefreshLayoutFav.setOnRefreshListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    loadFavorites()// Cargar fav
+                } catch (e: HttpException) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error HTTP: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+                } finally {
+                    withContext(Dispatchers.Main) {
+                        binding.swipeRefreshLayoutFav.isRefreshing = false
+                    }
+                }
+            }
         }
+
 //        GlobalScope.launch (Dispatchers.Main){
 //            showProgressBar()
 //        }
