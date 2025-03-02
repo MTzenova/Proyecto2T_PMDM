@@ -60,6 +60,7 @@ class ScaffoldFragment : Fragment() {
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adaptader = ItemAdapter(amigos)//añadi esto ahora para intentar resolver error
@@ -74,24 +75,24 @@ class ScaffoldFragment : Fragment() {
             /* Infla la vista del menú */
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar,menu)
+                //binding.toolbar.setNavigationOnClickListener {}
+//                val searchItem = menu.findItem(R.id.action_search)
+//                val searchView = searchItem?.actionView as SearchView
 
-                val searchItem = menu.findItem(R.id.action_search)
-                val searchView = searchItem?.actionView as SearchView
-
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        if (query != null) {
-                            buscar(query)
-                        }
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        //este es para filtrar en tiempo real mientras escribe
-                        newText?.let { performSearch(it) }
-                        return true
-                    }
-                })
+//                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//                    override fun onQueryTextSubmit(query: String?): Boolean {
+//                        if (query != null) {
+//                            buscar(query)
+//                        }
+//                        return true
+//                    }
+//
+//                    override fun onQueryTextChange(newText: String?): Boolean {
+//                        //este es para filtrar en tiempo real mientras escribe
+//                        newText?.let { performSearch(it) }
+//                        return true
+//                    }
+//                })
             }
             /* Gestiona evento onClick */
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

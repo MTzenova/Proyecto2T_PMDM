@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:layout_gravity="start"
         android:padding="4dp"
-        android:background="?attr/colorAccent">
+        android:background="#5392D6">
 
     <ImageView
             android:id="@+id/imageViewProfile"

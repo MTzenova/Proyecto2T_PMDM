@@ -156,28 +156,6 @@ class ListaFragment : Fragment(){
         val searchView = searchItem.actionView as SearchView
         //searchView.setOnQueryTextListener(this)
 
-        searchView.setOnQueryTextListener(object : OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    performSearch(it) // Realiza la búsqueda final
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    performSearch(it) // Filtrar lista según la búsqueda
-                }
-                return true
-            }
-        })
     }
 
-//    override fun onQueryTextSubmit(p0: String?): Boolean {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun onQueryTextChange(p0: String?): Boolean {
-//        TODO("Not yet implemented")
-//    }
 }
