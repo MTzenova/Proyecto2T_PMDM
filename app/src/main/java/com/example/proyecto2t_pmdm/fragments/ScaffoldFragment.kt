@@ -3,7 +3,6 @@ package com.example.proyecto2t_pmdm.fragments
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
@@ -49,18 +48,6 @@ class ScaffoldFragment : Fragment() {
         return binding.root
     }
 
-    //funcion para buscar
-    private fun buscar(query:String){
-        Toast.makeText(activity,"Buscando $query", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun performSearch(query:String){
-        val filteredList = amigos.filter{item-> item.nombre.contains(query,ignoreCase = true)}
-        adaptader.updateList(filteredList)
-
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adaptader = ItemAdapter(amigos)//añadi esto ahora para intentar resolver error
@@ -75,24 +62,7 @@ class ScaffoldFragment : Fragment() {
             /* Infla la vista del menú */
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar,menu)
-                //binding.toolbar.setNavigationOnClickListener {}
-//                val searchItem = menu.findItem(R.id.action_search)
-//                val searchView = searchItem?.actionView as SearchView
 
-//                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//                    override fun onQueryTextSubmit(query: String?): Boolean {
-//                        if (query != null) {
-//                            buscar(query)
-//                        }
-//                        return true
-//                    }
-//
-//                    override fun onQueryTextChange(newText: String?): Boolean {
-//                        //este es para filtrar en tiempo real mientras escribe
-//                        newText?.let { performSearch(it) }
-//                        return true
-//                    }
-//                })
             }
             /* Gestiona evento onClick */
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -101,6 +71,7 @@ class ScaffoldFragment : Fragment() {
                         // Manejar la selección del item1
                         val searchView = menuItem.actionView as SearchView
                         searchView.isIconified = false // Expande la barra de búsqueda al hacer clic
+
                         true
                     }
                     R.id.action_settings -> {

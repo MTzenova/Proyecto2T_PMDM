@@ -154,7 +154,16 @@ class ListaFragment : Fragment(){
         inflater.inflate(R.menu.toolbar, menu)
         val searchItem = menu.findItem(R.id.action_search) //accedemos al elemento
         val searchView = searchItem.actionView as SearchView
-        //searchView.setOnQueryTextListener(this)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {adapter.filtrar(it)}
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {adapter.filtrar(it)}
+                return false
+            }
+        })
 
     }
 

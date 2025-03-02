@@ -31,6 +31,18 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
         return items.size
     }
 
+    //para buscar
+    fun filtrar(query:String){
+        if(query.isEmpty()){
+            items
+        }else{
+            items.filter{
+                it.nombre.contains(query,ignoreCase = true)
+            }
+        }
+        notifyDataSetChanged()
+    }
+
 
     //Creamos el ViewHolder
     class ItemViewHolder(private val binding: LayoutItemBinding):RecyclerView.ViewHolder(binding.root){
