@@ -51,7 +51,27 @@ class FavoritosFragment : Fragment() {
     {
         super.onViewCreated(view, savedInstanceState)
         binding.rv.visibility = View.GONE
+        binding.progressBarRv.visibility = View.VISIBLE
         showRecyclerView()
+        //se carga al iniciar el fragment
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                loadFavorites()// Cargar fav
+            } catch (e: HttpException) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Error HTTP: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } finally {
+                withContext(Dispatchers.Main) {
+                    binding.swipeRefreshLayoutFav.isRefreshing = false
+                }
+            }
+        }
+        //para cuando refresco
         binding.swipeRefreshLayoutFav.setOnRefreshListener {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -104,6 +124,7 @@ class FavoritosFragment : Fragment() {
 
         withContext(Dispatchers.Main) {
             binding.rv.visibility = View.GONE
+            binding.progressBarRv.visibility = View.VISIBLE
         }
 
         try {
@@ -125,6 +146,7 @@ class FavoritosFragment : Fragment() {
 
             //actualizar
             withContext(Dispatchers.Main) {
+                binding.progressBarRv.visibility = View.GONE
                 binding.rv.visibility = View.VISIBLE
                 // Actualizar el adaptador
                adapter = ItemAdapter(listaFav)

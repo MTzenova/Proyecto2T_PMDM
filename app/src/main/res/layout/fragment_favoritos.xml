@@ -7,15 +7,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/very_light_blue">
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" tools:ignore="UselessParent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">>
+
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:listitem="@layout/layout_item"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBarRv"
                 android:id="@+id/rv">
+
         </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>
+
+        <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:id="@+id/progressBarRv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
