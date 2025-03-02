@@ -3,7 +3,5 @@
     <style name="Base.Theme.Proyecto2T_PMDM" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="android:statusBarColor">@color/black</item>
-        <color name="iconColorLight">#FFFFFF</color>
-        <color name="iconColorDark">#000000</color>
     </style>
 </resources>
