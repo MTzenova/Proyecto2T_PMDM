@@ -36,7 +36,8 @@ class AlertFragment : DialogFragment() {
             val amigo = hashMapOf(
                 "usuario" to binding.editTextId.text.toString(),
                 "disponibilidad" to binding.disponibilidadFa.text.toString(),
-                "fav" to false
+                "fav" to false,
+                "foto" to "https://i.imgur.com/qd4UtWW.png",
             )
 
             db.collection("amigos")

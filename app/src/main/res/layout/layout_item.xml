@@ -25,7 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/estado_rv"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.32"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.352"
                 android:layout_marginStart="10dp" android:textColor="@color/black"/>
         <TextView
                 android:text="@string/estado_rv"
@@ -59,7 +59,7 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
                 android:contentDescription="@string/imagen_rv" android:foregroundGravity="left"
-                app:layout_constraintEnd_toStartOf="@+id/nombre_rv"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
                 android:text="@string/disponibilidad_rv"
                 android:layout_width="wrap_content"

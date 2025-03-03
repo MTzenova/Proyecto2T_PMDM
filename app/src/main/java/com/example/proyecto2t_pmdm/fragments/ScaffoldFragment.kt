@@ -1,6 +1,7 @@
 package com.example.proyecto2t_pmdm.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.example.proyecto2t_pmdm.R
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
@@ -89,23 +91,25 @@ class ScaffoldFragment : Fragment() {
         val toggle = ActionBarDrawerToggle(requireActivity(), binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
         binding.navigationView.setNavigationItemSelectedListener {
+
                 item -> when(item.itemId)
             {
                 R.id.nav_home -> {
                     navController.navigate(R.id.listaFragment)
-                    //binding.drawerLayout.closeDrawer(GravityCompat.START) //para cerrar cuando clicas
+                    binding.drawerLayout.closeDrawer(GravityCompat.START) //para cerrar cuando clicas
                     true
                 }
 
                 R.id.nav_dashboard -> {
                     navController.navigate(R.id.contactoFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
                 R.id.nav_notifications -> {
-                    navController.navigate(R.id.favoritosFragment2)
+                    navController.navigate(R.id.loginFragment2)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 

@@ -60,7 +60,7 @@ class ListaFragment : Fragment(){
                 val fav = document.get("fav") as Boolean
                 val amigo = Item(
                     document.id.hashCode(), // Usando hashCode como ID no me da error
-                    document.get("foto") as? Int?: 0,
+                    document.get("foto") as? String?: "",
                     document.get("usuario") as String,
                     document.get("estado") as? String ?: "¡Hola, estoy usando Android Messenger!",
                     document.get("disponibilidad") as? String ?: "Desconectado",

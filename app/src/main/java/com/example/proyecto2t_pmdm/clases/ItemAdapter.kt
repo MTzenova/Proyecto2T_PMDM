@@ -52,10 +52,11 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
             binding.estadoRv.text = data.estado
             binding.disponibilidadRv.text = data.disponibilidad
 
-            //Para las fotos del recycler activity
+            //Para las fotos del recycler
             Glide
                 .with(binding.root.context)
                 .load(data.foto)
+                .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.fotoRv)
 
             //Aquí cambiamos la imagen del icono de favorito según si lo marcamos o desmarcamos
