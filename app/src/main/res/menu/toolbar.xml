@@ -16,7 +16,7 @@
 
             <menu>
                 <item
-                        android:id="@+id/subitem1"
+                        android:id="@+id/sign_out"
                         android:title="@string/salir"/>
             </menu>
 

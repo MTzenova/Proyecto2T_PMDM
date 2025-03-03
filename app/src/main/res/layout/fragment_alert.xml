@@ -26,12 +26,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/correo_fa">
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="3"
-                android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

@@ -1,7 +1,6 @@
 package com.example.proyecto2t_pmdm.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.proyecto2t_pmdm.R
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.navigation.fragment.findNavController
 import com.example.proyecto2t_pmdm.clases.Item
 import com.example.proyecto2t_pmdm.clases.ItemAdapter
 import com.example.proyecto2t_pmdm.databinding.FragmentScaffoldBinding
@@ -77,7 +77,14 @@ class ScaffoldFragment : Fragment() {
                         true
                     }
                     R.id.action_settings -> {
-                        // Manejar la selección del item2
+
+                        true
+                    }
+                    R.id.sign_out ->{
+                        // Manejar el sign out
+                        val auth = FirebaseAuth.getInstance()
+                        auth.signOut()
+                        findNavController().navigate(R.id.action_scaffoldFragment3_to_loginFragment2)
                         true
                     }
                     else -> false
