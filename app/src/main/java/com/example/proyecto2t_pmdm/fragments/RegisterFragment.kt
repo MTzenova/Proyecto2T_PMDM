@@ -19,6 +19,8 @@ import com.example.proyecto2t_pmdm.fragments.LoginFragment.OnFragmentChangeListe
 import com.example.proyecto2t_pmdm.viewmodels.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment() {
 
@@ -95,6 +97,8 @@ class RegisterFragment : Fragment() {
             val clave = binding.campoClaveRa.text.toString()
             val correo = binding.campoCorreoRa.text.toString()
             val usuario = binding.campoUsuarioRa.text.toString()
+            val fechaNacimiento = binding.dateRa.text.toString()
+
             var bien = true
             if (clave.isEmpty() || clave.length < 8) {
                 bien = false
@@ -117,19 +121,42 @@ class RegisterFragment : Fragment() {
             if (bien){
                 Snackbar.make(binding.root, R.string.snackbar_registrarse_ra, Snackbar.LENGTH_LONG).show()
 
-                findNavController().navigate(R.id.action_registerFragment2_to_scaffoldFragment3)
-
                 auth = FirebaseAuth.getInstance()
                     auth
                         .createUserWithEmailAndPassword(binding.campoCorreoRa.text.toString(), binding.campoClaveRa.text.toString())
-                        .addOnSuccessListener {
-                            //si consigue registrarse, pasamos a otro fragment
-                            findNavController().navigate(R.id.action_registerFragment2_to_scaffoldFragment3)
+                        .addOnSuccessListener { authResult ->
+                            val userId = auth.currentUser?.uid
+
+                            if(userId!=null){
+                                val usuarioInfo = hashMapOf(
+                                    "usuario" to usuario,
+                                    "clave" to clave,
+                                    "correo" to correo,
+                                    "fecha_nacimiento" to fechaNacimiento
+                                )
+
+                                val perfil =  UserProfileChangeRequest.Builder().setDisplayName(usuario).build()
+
+                                auth.currentUser?.updateProfile(perfil)
+                                val db = FirebaseFirestore.getInstance()
+                                db.collection("usuarios").document(userId)
+                                    .set(usuarioInfo)
+                                    .addOnSuccessListener {
+                                        Snackbar.make(binding.root, R.string.snackbar_registrarse_ra, Snackbar.LENGTH_LONG).show()
+                                        findNavController().navigate(R.id.action_registerFragment2_to_scaffoldFragment3)
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        // En caso de error al guardar en Firestore
+                                        Toast.makeText(requireContext(), "Error al guardar los datos: ${exception.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+
                         }
                         .addOnFailureListener { exception ->
                             //en caso de error
                             Toast.makeText(requireContext(), exception.message, Toast.LENGTH_SHORT).show()
                         }
+
             }else{
                 val snackError = Snackbar.make(binding.root, R.string.login_error, Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_cerrar)
                 {

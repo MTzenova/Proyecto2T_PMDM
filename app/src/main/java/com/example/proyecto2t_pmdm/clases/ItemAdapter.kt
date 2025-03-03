@@ -85,7 +85,7 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
                         val usuario = Firebase.auth.currentUser?.email.toString()
                         val usuarioDoc = db.collection("usuarios").document(usuario)
                         if(data.fav){
-                            usuarioDoc.update("nFav", FieldValue.arrayRemove(data.id))
+                            usuarioDoc.update("nFav", FieldValue.arrayUnion(data.id))
                         }else{
                             usuarioDoc.update("nFav", FieldValue.arrayRemove(data.id))
                         }

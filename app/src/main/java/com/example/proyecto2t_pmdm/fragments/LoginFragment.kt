@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = FragmentLoginBinding.inflate(layoutInflater) //Infla la vista utilizando la clase de vinculación
+        binding = FragmentLoginBinding.inflate(layoutInflater) //Infla la vista
     }
 
     override fun onCreateView(

@@ -38,6 +38,7 @@ class AlertFragment : DialogFragment() {
                 "disponibilidad" to binding.disponibilidadFa.text.toString(),
                 "fav" to false,
                 "foto" to "https://i.imgur.com/qd4UtWW.png",
+                "estado" to "¡Hola, estoy usando Android Messenger!"
             )
 
             db.collection("amigos")
