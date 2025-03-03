@@ -32,7 +32,7 @@
     <string name="sing_up_ra">"Regístrate"</string>
     <string name="fecha_nacimiento_ra">Fecha de nacimiento</string>
     <string name="nickname_ra">"Nombre de usuario"</string>
-    <string name="cambiar_img_ra">"Cambiar imagen"</string>
+    <string name="cambiar_img_ra"><u>"Cambiar imagen"</u></string>
     <string name="registrarse_ra">"Registrarse"</string>
     <string name="usuario_error_ra">"Debes introducir un nombre de usuario."</string>
     <string name="snackbar_registrarse_ra">"Usuario registrado correctamente."</string>

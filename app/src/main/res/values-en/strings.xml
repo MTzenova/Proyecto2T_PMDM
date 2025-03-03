@@ -28,7 +28,7 @@
     <string name="sing_up_ra">Sing up</string>
     <string name="fecha_nacimiento_ra">Birthday</string>
     <string name="nickname_ra">Nickname</string>
-    <string name="cambiar_img_ra">Change photo</string>
+    <string name="cambiar_img_ra"><u>Change photo</u></string>
     <string name="registrarse_ra">Sing up</string>
     <string name="usuario_error_ra">You must enter a nickname.</string>
     <string name="snackbar_registrarse_ra">User registered successfully.</string>

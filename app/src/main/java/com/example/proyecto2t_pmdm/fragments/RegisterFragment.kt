@@ -12,6 +12,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.proyecto2t_pmdm.R
 import com.example.proyecto2t_pmdm.databinding.FragmentRegisterBinding
 import com.example.proyecto2t_pmdm.fragments.LoginFragment.OnFragmentChangeListener
@@ -141,6 +142,16 @@ class RegisterFragment : Fragment() {
 
         binding.textoIniciarSesion.setOnClickListener{
             findNavController().navigate(R.id.action_registerFragment2_to_loginFragment2)
+        }
+
+        binding.cambiarImgRa.setOnClickListener{
+            //codigo para cargar una imagen cualquiera con glide
+            val urlImagen = "https://i.imgur.com/8AFR12H.png"
+            Glide
+                .with(binding.root.context)
+                .load(urlImagen)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(binding.imageView2)
         }
 
         binding.btnDateRa.setOnClickListener {
