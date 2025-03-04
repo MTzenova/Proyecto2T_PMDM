@@ -27,17 +27,18 @@ class ListaFragment : Fragment(){
     private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
 
-    private fun performSearch(query: String) {
-        val filteredList = amigosList.filter { item -> item.nombre.contains(query, ignoreCase = true) }
-        adapter.updateList(filteredList)
-    }
-
     private fun showRecyclerView()
     {
         adapter = ItemAdapter(mutableListOf())
         binding.rvLista.layoutManager = LinearLayoutManager(requireContext())
         binding.rvLista.adapter = adapter
 
+    }
+
+    //este si funciona para buscar
+    fun searchList(text: String) {
+        val filteredList = amigosList.filter { it.nombre.contains(text, ignoreCase = true) }
+        adapter.updateList(filteredList) //llamamos a update para actualizar en recyclerview
     }
 
     private suspend fun cargarAmigos() {

@@ -26,6 +26,7 @@ class ScaffoldFragment : Fragment() {
     private lateinit var adaptader: ItemAdapter
     private lateinit var auth: FirebaseAuth
 
+    //para obtener el nombre del usuario para mostrarlo en el nav_head
     private fun obtenerNombre(){
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
@@ -40,12 +41,23 @@ class ScaffoldFragment : Fragment() {
         }
     }
 
+//    fun searchList(text: String) {
+//        val filteredList = amigos.filter { it.nombre?.contains(text, ignoreCase = true) == true }
+//        adaptader.searchAmigoLista(filteredList)
+//    } //esta no sirve
+
+    //esta si funciona, busca bien
+    private fun busquedaDeDatos(query:String){
+        //para comunicar los fragmentos, si no no consigue buscar bien
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_scaffold) as NavHostFragment
+        val listaFragment = navHostFragment.childFragmentManager.primaryNavigationFragment as? ListaFragment
+        listaFragment?.searchList(query) //llamamos a la función de listaFragment para buscar, le pasamos un texto
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View{
         // Inflate the layout
         binding = FragmentScaffoldBinding.inflate(inflater, container, false)
-        adaptader = ItemAdapter(amigos) // Inicializa adaptador aquí
-
-        obtenerNombre()
+        adaptader = ItemAdapter(amigos)
 
         return binding.root
     }
@@ -55,6 +67,7 @@ class ScaffoldFragment : Fragment() {
         adaptader = ItemAdapter(amigos)//añadi esto ahora para intentar resolver error
 
 
+        obtenerNombre() //obtenemos el nombre para el drawer
         /* TOOLBAR */
         /* Establece la Toolbar como nueva ActionBar */
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
@@ -70,10 +83,21 @@ class ScaffoldFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.action_search -> {
-                        // Manejar la selección del item1
+                        //para buscar, funciona
                         val searchView = menuItem.actionView as SearchView
-                        searchView.isIconified = false // Expande la barra de búsqueda al hacer clic
+                        searchView.isIconified = false //esto es para expandir la barra al tocarlo
+                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean {
+                                busquedaDeDatos(query?:"")
+                                searchView.clearFocus() //esto es para cerrar el teclado
+                                return false
+                            }
 
+                            override fun onQueryTextChange(newText: String): Boolean {
+                                busquedaDeDatos(newText)
+                                return true //este es para filtrar en tiempo real mientras escribe
+                            }
+                        })
                         true
                     }
                     R.id.action_settings -> {
@@ -91,6 +115,7 @@ class ScaffoldFragment : Fragment() {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
 
         /* DRAWERLAYOUT */
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_scaffold) as NavHostFragment

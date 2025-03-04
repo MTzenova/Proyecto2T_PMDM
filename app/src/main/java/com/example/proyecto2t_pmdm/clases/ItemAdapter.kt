@@ -31,14 +31,19 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
         return items.size
     }
 
+    //para buscar, intento 234
+    fun searchAmigoLista(searchList:List<Item>){
+        items.clear()
+        items.addAll(searchList)
+        notifyDataSetChanged()
+    }
+
     //para buscar
-    fun filtrar(query:String){
-        if(query.isEmpty()){
-            items
-        }else{
-            items.filter{
-                it.nombre.contains(query,ignoreCase = true)
-            }
+    fun filtrar(query: String) {
+        items = if (query.isEmpty()) {
+            ArrayList(itemsLista)
+        } else {
+            itemsLista.filter { it.nombre.contains(query, ignoreCase = true) }.toMutableList()
         }
         notifyDataSetChanged()
     }
