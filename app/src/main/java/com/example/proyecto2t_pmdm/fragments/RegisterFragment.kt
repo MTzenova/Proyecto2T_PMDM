@@ -71,6 +71,7 @@ class RegisterFragment : Fragment() {
             }
         })
 
+        //para actualizar los valores
         binding.campoCorreoRa.doOnTextChanged { text, _, _, _->
             viewModel.setEmail(text?.toString()?:"")
             viewModel.onRegisterEnableChanged()
@@ -202,20 +203,4 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    companion object {
-        //Patrón Singleton
-        //private var instance: RegisterFragment? = null
-//aaaa
-//        fun getInstance(): RegisterFragment
-//        {
-//
-//            if (instance == null)
-//            {
-//                instance = RegisterFragment()
-//            }
-//
-//            return instance!!
-//        }
-
-    }
 }

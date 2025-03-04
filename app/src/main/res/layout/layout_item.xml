@@ -26,7 +26,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/estado_rv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.352"
-                android:layout_marginStart="10dp" android:textColor="@color/black"/>
+                android:layout_marginStart="10dp" android:textColor="@color/black" android:textStyle="bold"/>
         <TextView
                 android:text="@string/estado_rv"
                 android:layout_width="181dp"
@@ -68,6 +68,29 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nombre_rv" app:layout_constraintHorizontal_bias="0.206"
                 app:layout_constraintVertical_bias="0.2" android:layout_marginStart="5dp"
+                android:textColor="@color/black" android:textStyle="italic"/>
+        <TextView
+                android:text="@string/parentesisA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.2"
+                app:layout_constraintStart_toEndOf="@+id/nombre_rv"
+                app:layout_constraintEnd_toStartOf="@+id/disponibilidad_rv"
+                app:layout_constraintHorizontal_bias="1.0"
+                android:textColor="@color/black"/>
+        <TextView
+                android:text="@string/parentesisC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/boton_fav"
+                app:layout_constraintStart_toEndOf="@+id/disponibilidad_rv"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.2"
                 android:textColor="@color/black"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

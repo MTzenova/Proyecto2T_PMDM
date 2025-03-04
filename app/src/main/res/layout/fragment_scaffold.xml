@@ -6,13 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/nav_header"
-            app:menu="@menu/drawer"/>
+
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -29,12 +23,12 @@
                     android:layout_height="?attr/actionBarSize"
                     app:menu="@menu/toolbar"
                     app:title="@string/app_name"/>
-        </com.google.android.material.appbar.AppBarLayout>
+
 
         <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="1000dp"
                 android:layout_weight="1">
 
             <androidx.fragment.app.FragmentContainerView
@@ -52,6 +46,13 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
                 app:menu="@menu/bnm"/>
+        </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
-
+    <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

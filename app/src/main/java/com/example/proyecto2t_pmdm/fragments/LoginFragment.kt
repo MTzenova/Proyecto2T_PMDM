@@ -34,17 +34,18 @@ import kotlinx.coroutines.withContext
 //private const val ARG_PARAM2 = "param2"
 
 class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding //acceder a elementos
     private lateinit var auth: FirebaseAuth
     private lateinit var credentialManager: CredentialManager
 
-    private var listener: OnFragmentChangeListener? = null
+    private var listener: OnFragmentChangeListener? = null //esto creo que tampoco lo uso ahora
 
     //Interface para pasar información del Fragment al Activity
-    interface OnFragmentChangeListener { fun onFragmentChangeLogin() }
+    interface OnFragmentChangeListener { fun onFragmentChangeLogin() } //no lo usamos
 
     //ViewModel para pasar información entre Fragments
     private lateinit var viewModel: LoginViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +57,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(layoutInflater)
+        binding = FragmentLoginBinding.inflate(layoutInflater)//Infla la vista
         return binding.root
     }
 
@@ -73,19 +73,20 @@ class LoginFragment : Fragment() {
         //configurar observadores
         viewModel.loginEnable.observe(viewLifecycleOwner, Observer { success ->
             if(success){
-                binding.button.isEnabled = true
-                binding.button.alpha = 1f
+                binding.button.isEnabled = true //activo el botón
+                binding.button.alpha = 1f //el botón no se ve transparente
             }else{
-                binding.button.isEnabled = false
-                binding.button.alpha = 0.5f
+                binding.button.isEnabled = false //desactivo el botón
+                binding.button.alpha = 0.5f //bajo transparencia al botón
             }
         })
 
+        //para actualizar los valores en viewmodel (correo)
         binding.campoCorreo.doOnTextChanged{text, _, _, _ ->
             viewModel.onEmailChanged(text?.toString()?:"")
             viewModel.onLoginEnableChanged()
         }
-
+        //para actualizar los valores en viewmodel (contraseña)
         binding.campoContrasenya.doOnTextChanged{text, _, _, _ ->
             viewModel.onPasswordChanged(text?.toString()?:"")
             viewModel.onLoginEnableChanged()
@@ -114,18 +115,20 @@ class LoginFragment : Fragment() {
                 binding.outlinedTextField2.error = null
             }
 
+            //si los campos son correctos
             if(bien){
                 Snackbar.make(binding.root, R.string.snackbar_iniciar, Snackbar.LENGTH_LONG).show()
 
+                //para autenticarnos con correo electrónico
                 auth = FirebaseAuth.getInstance()
                 auth
                     .signInWithEmailAndPassword(binding.campoCorreo.text.toString(), binding.campoContrasenya.text.toString())
                     .addOnSuccessListener {
-                        // Si el login es exitoso, pasamos a otro fragment
+                        //si el login es exitoso, pasamos a otro fragment
                         findNavController().navigate(R.id.action_loginFragment2_to_scaffoldFragment3)
                     }
                     .addOnFailureListener { exception ->
-                        // En caso de error, mostramos el mensaje con un Toast
+                        //si hay error, mostramos el mensaje
                         Toast.makeText(requireContext(), exception.message, Toast.LENGTH_SHORT).show() //formato de contraseña inválido???
                     }
             }else{
@@ -139,6 +142,7 @@ class LoginFragment : Fragment() {
 
         }
 
+        //no recordar contraseña
         binding.noRecordar.setOnClickListener ()
         {
             //SE DEBE CAMBIAR POR ALERT DIALOG
@@ -149,20 +153,22 @@ class LoginFragment : Fragment() {
             snackNoRecordar.show()
         }
 
-        //boton no tener cuenta -- lleva a register
+        //boton no tener cuenta.
         binding.noCuenta.setOnClickListener{
             Snackbar.make(binding.root, R.string.snackbar_no_cuenta, Snackbar.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2)
+            findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2) //lleva a register
         }
 
+        //botón de iniciar sesión con google
         binding.button2.setOnClickListener()
         {
-            signInWithGoogle()
+            signInWithGoogle() //con este método se inicia sesión con google
         }
 
+        //botón de iniciar sesión con facebook
         binding.button3.setOnClickListener()
         {
-            Snackbar.make(binding.root, R.string.snackbar_iniciar_facebook, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.snackbar_iniciar_facebook, Snackbar.LENGTH_LONG).show() //muestra mensaje
         }
 
 
@@ -173,12 +179,13 @@ class LoginFragment : Fragment() {
 //        parentFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment).commit()
 //    }
 
+    //método para iniciar sesión con google
     private fun signInWithGoogle(){
-        val auth = FirebaseAuth.getInstance() //si no inicio esto aquí, no me inicia sesiñón
+        val auth = FirebaseAuth.getInstance() //si no inicio esto aquí, no me inicia sesión
 
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false) //con esto en false ya me deja elegir cuenta
-            .setServerClientId(getString(R.string.web_client_id))
+            .setServerClientId(getString(R.string.web_client_id)) //la id
             //.setNonce(hashedNonce)
             .setAutoSelectEnabled(false) //con esto en false no selecciona automáticamente una cuenta de google
             .build()
@@ -194,14 +201,9 @@ class LoginFragment : Fragment() {
                 val result = credentialManager.getCredential(context = requireContext(), request = request)
                 val credential = result.credential
 
-                // Use googleIdTokenCredential and extract the ID to validate and
-                // authenticate on your server.
                 val googleIdTokenCredential = GoogleIdTokenCredential
                     .createFrom(credential.data)
 
-                // You can use the members of googleIdTokenCredential directly for UX
-                // purposes, but don't use them to store or control access to user
-                // data. For that you first need to validate the token:
                 val googleIdToken = googleIdTokenCredential.idToken
 
                 val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
@@ -209,6 +211,7 @@ class LoginFragment : Fragment() {
 
                 if(authResult != null)
                 {
+                    //si va bien, nos lelva al scaffold, a la lista
                     withContext(Dispatchers.Main)
                     {
                         Toast.makeText(requireContext(), "Login exitoso", Toast.LENGTH_SHORT).show()
@@ -218,6 +221,7 @@ class LoginFragment : Fragment() {
                 }
                 else
                 {
+                    //si no, mensaje de error
                     withContext(Dispatchers.Main)
                     {
                         Toast.makeText(requireContext(), "Error en el login", Toast.LENGTH_SHORT).show()

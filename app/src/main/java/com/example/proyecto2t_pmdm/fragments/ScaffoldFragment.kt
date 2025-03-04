@@ -134,13 +134,13 @@ class ScaffoldFragment : Fragment() {
                 }
 
                 R.id.nav_dashboard -> {
-                    navController.navigate(R.id.contactoFragment)
+                    navController.navigate(R.id.favoritosFragment2)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
                 R.id.nav_notifications -> {
-                    navController.navigate(R.id.loginFragment2)
+                    navController.navigate(R.id.contactoFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

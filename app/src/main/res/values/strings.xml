@@ -72,4 +72,6 @@
     <string name="agregar_fa">Agregar</string>
     <string name="ajustes">Ajustes</string>
     <string name="salir">Cerrar sesión</string>
+    <string name="parentesisA" translatable="false">(</string>
+    <string name="parentesisC" translatable="false">)</string>
 </resources>
