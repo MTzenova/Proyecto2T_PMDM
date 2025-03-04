@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class RegisterViewModel : ViewModel()
 {
-    //Observa todo el rato: Cuando los datos cambian, la vista se actualiza a partir del cambio en esos datos.
+    //Observa ttodo el rato: Cuando los datos cambian, la vista se actualiza a partir del cambio en esos datos.
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> get() = _email
 

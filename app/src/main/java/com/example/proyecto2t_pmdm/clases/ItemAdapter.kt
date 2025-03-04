@@ -15,13 +15,13 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
 
     private var itemsLista:List<Item> = ArrayList(items)
 
-    //Inflamos el layout para cada item, es decir, cargamos la vista gráfica de las cuadrículas de la vista
+
     override fun onCreateViewHolder(parent:ViewGroup, viewType:Int): ItemViewHolder {
-        val binding = LayoutItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = LayoutItemBinding.inflate(LayoutInflater.from(parent.context),parent,false) //inflamos el layout
         return ItemViewHolder(binding)
     }
 
-    //Asignamos los valores de los datos a cada vista
+    //vincular datos del item
     override fun onBindViewHolder(holder:ItemViewHolder, position: Int) {
         holder.bind(itemsLista[position])
     }
@@ -32,17 +32,17 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
     }
 
     //para buscar, intento 234
-    fun searchAmigoLista(searchList:List<Item>){
-        items.clear()
-        items.addAll(searchList)
-        notifyDataSetChanged()
-    }
+//    fun searchAmigoLista(searchList:List<Item>){
+//        items.clear()
+//        items.addAll(searchList)
+//        notifyDataSetChanged()
+//    }
 
-    //para buscar
+    //para buscar lo que se pasa por parametro
     fun filtrar(query: String) {
         items = if (query.isEmpty()) {
             ArrayList(itemsLista)
-        } else {
+        } else { //si está vacío muestra ttodo
             itemsLista.filter { it.nombre.contains(query, ignoreCase = true) }.toMutableList()
         }
         notifyDataSetChanged()
@@ -52,26 +52,26 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
     //Creamos el ViewHolder
     class ItemViewHolder(private val binding: LayoutItemBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data:Item){
-            //Acceder a las vistas directamente a través del binding
+            //acceder a las vistas
             binding.nombreRv.text = data.nombre
             binding.estadoRv.text = data.estado
             binding.disponibilidadRv.text = data.disponibilidad
 
-            //Para las fotos del recycler
+            //para las fotos del recycler
             Glide
                 .with(binding.root.context)
                 .load(data.foto)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.fotoRv)
 
-            //Aquí cambiamos la imagen del icono de favorito según si lo marcamos o desmarcamos
+            //cambiar corazon si está en fav o no
             if(data.fav){
-                binding.botonFav.setImageResource(R.drawable.fav_selected) //Si es favorito
+                binding.botonFav.setImageResource(R.drawable.fav_selected) //si es favorito
             }else{
-                binding.botonFav.setImageResource(R.drawable.fav_unselected) //Si no es favorito
+                binding.botonFav.setImageResource(R.drawable.fav_unselected) //si no es favorito
             }
 
-            //Evento para cuando hacemos click
+            //para cuando hacemos click
             binding.botonFav.setOnClickListener {
                 if(data.fav){
                     binding.botonFav.setImageResource(R.drawable.fav_unselected)
@@ -79,8 +79,7 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
                     binding.botonFav.setImageResource(R.drawable.fav_selected)
                 }
                 data.fav = !data.fav
-
-                //Actualizar BBDD
+                //actualizar BBDD
                 val db = Firebase.firestore
 
                 db.collection("amigos")
@@ -102,6 +101,7 @@ class ItemAdapter(private var items:MutableList<Item>):RecyclerView.Adapter<Item
         }
     }
 
+    //método para actualziar la lista
     fun updateList(newList: List<Item>){
         items.clear()
         items.addAll(newList)

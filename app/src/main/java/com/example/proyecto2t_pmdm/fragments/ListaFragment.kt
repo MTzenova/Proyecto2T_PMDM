@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyecto2t_pmdm.R
@@ -27,6 +26,7 @@ class ListaFragment : Fragment(){
     private var amigosList = mutableListOf<Item>()
     private lateinit var adapter: ItemAdapter
 
+    //método para mostrar el recycler view
     private fun showRecyclerView()
     {
         adapter = ItemAdapter(mutableListOf())
@@ -42,20 +42,22 @@ class ListaFragment : Fragment(){
     }
 
     private suspend fun cargarAmigos() {
-        // Cargar datos de la base de datos
+        //cargamos los datos de la BBDD
         FirebaseApp.initializeApp(requireContext().applicationContext)
         val db = FirebaseFirestore.getInstance()
         amigosList.clear()
 
-        // Ejecutar en hilo principal para evitar errores en la UI
+        //se tieen que ejecuta en el hilo principal para no tener errores
         withContext(Dispatchers.Main) {
-            // Ocultar RecyclerView y mostrar ProgressBar
+            //ocultaamos recycler view
             binding.rvLista.visibility = View.GONE
+            //mostramos progressbar
             binding.progressBar.visibility = View.VISIBLE
         }
 
-        // Obtener datos desde Firestore
+
         try {
+            //para obtener los datos de BBDD
             val result = db.collection("amigos").get().await()
             for (document in result) {
                 val fav = document.get("fav") as Boolean
@@ -67,7 +69,7 @@ class ListaFragment : Fragment(){
                     document.get("disponibilidad") as? String ?: "Desconectado",
                     fav
                 )
-                amigosList.add(amigo)
+                amigosList.add(amigo) //lo añadimos
             }
         } catch (e: Exception) {
             Log.e("FirebaseError", "Error al obtener amigos: ", e)
@@ -76,12 +78,12 @@ class ListaFragment : Fragment(){
             }
         }
 
-        // Actualizar UI después de cargar los datos
+        //actualizar despues de obtener datos
         withContext(Dispatchers.Main) {
-            binding.progressBar.visibility = ProgressBar.GONE
-            binding.rvLista.visibility = View.VISIBLE
+            binding.progressBar.visibility = ProgressBar.GONE //desactivamos progressbar
+            binding.rvLista.visibility = View.VISIBLE //activamos recyclerview
 
-            // Actualizar el adaptador
+            //actualizar adapter
             adapter = ItemAdapter(amigosList)
             binding.rvLista.adapter = adapter
             adapter.notifyDataSetChanged()
@@ -92,11 +94,11 @@ class ListaFragment : Fragment(){
     override fun onResume() {
         super.onResume()
 
-        // Ejecutar la carga de amigos en un hilo de fondo
+        //usamos corrutina para llamar a cargar amigos
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                cargarAmigos() // Llamada suspendida para cargar los amigos
-            } catch (e: HttpException) {
+                cargarAmigos() //llamamos a cargar amigos
+            } catch (e: HttpException) { //errores
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Error HTTP: ${e.message}", Toast.LENGTH_LONG).show()
                 }
@@ -112,7 +114,7 @@ class ListaFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListaBinding.inflate(inflater, container, false)
+        binding = FragmentListaBinding.inflate(inflater, container, false) //inflar layour
         return binding.root
     }
 
@@ -122,12 +124,12 @@ class ListaFragment : Fragment(){
         binding.rvLista.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
         showRecyclerView()
-        // Configurar el SwipeRefreshLayout
+        //swipe para recargar los amigos
         binding.swipeRefreshLayout.setOnRefreshListener {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    cargarAmigos() // Cargar los amigos nuevamente
-                } catch (e: HttpException) {
+                    cargarAmigos() //metodo de cargar amigos
+                } catch (e: HttpException) { //errores
                     withContext(Dispatchers.Main) {
                         Toast.makeText(requireContext(), "Error HTTP: ${e.message}", Toast.LENGTH_LONG).show()
                     }
@@ -143,13 +145,14 @@ class ListaFragment : Fragment(){
             }
         }
 
-        // Botón para añadir un amigo
+        //boton flotante para añadir amigo a la lista
         binding.fab.setOnClickListener {
-            val alertDialog = AlertFragment()
+            val alertDialog = AlertFragment() //llamamos al alert fragment
             alertDialog.show(requireActivity().supportFragmentManager, "FormDialogFragment")
         }
     }
 
+    //toolbar (no me acuerdo si este funcionaba)
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
         inflater.inflate(R.menu.toolbar, menu)

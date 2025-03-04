@@ -24,6 +24,7 @@ class FavoritosFragment : Fragment() {
     private lateinit var adapter: ItemAdapter
     private lateinit var listaFav: MutableList<Item>
 
+    //para mostrar el recyclerview
     private fun showRecyclerView()
     {
         adapter = ItemAdapter(mutableListOf())
@@ -34,14 +35,12 @@ class FavoritosFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        binding = FragmentFavoritosBinding.inflate(inflater,container,false)
+        binding = FragmentFavoritosBinding.inflate(inflater,container,false) //inflar layout
         db = FirebaseFirestore.getInstance()
         listaFav = mutableListOf()
 
         adapter = ItemAdapter(listaFav)
         binding.rv.adapter = adapter
-
-
 
         return binding.root
     }
@@ -50,15 +49,16 @@ class FavoritosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        binding.rv.visibility = View.GONE
-        binding.progressBarRv.visibility = View.VISIBLE
-        showRecyclerView()
+        binding.rv.visibility = View.GONE //ocultar recyclerview
+        binding.progressBarRv.visibility = View.VISIBLE //mostrar progressbar
+        showRecyclerView() //metodo de mostrar recycler view
+
         //se carga al iniciar el fragment
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                loadFavorites()// Cargar fav
+                loadFavorites()//método cargar fav
             } catch (e: HttpException) {
-                withContext(Dispatchers.Main) {
+                withContext(Dispatchers.Main) { //errores
                     Toast.makeText(requireContext(), "Error HTTP: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
@@ -75,8 +75,8 @@ class FavoritosFragment : Fragment() {
         binding.swipeRefreshLayoutFav.setOnRefreshListener {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    loadFavorites()// Cargar fav
-                } catch (e: HttpException) {
+                    loadFavorites()//método cargar fav
+                } catch (e: HttpException) { //errores
                     withContext(Dispatchers.Main) {
                         Toast.makeText(requireContext(), "Error HTTP: ${e.message}", Toast.LENGTH_LONG).show()
                     }
@@ -119,6 +119,7 @@ class FavoritosFragment : Fragment() {
 //        reciclerView.adapter = ItemAdapter(requireContext(), contactosList)
    }
 
+    //método para cargar favoritos desde la BBDD
     private suspend fun loadFavorites() {
         listaFav.clear()
 
@@ -134,7 +135,7 @@ class FavoritosFragment : Fragment() {
             for (document in result) {
                 val fav = document.get("fav") as Boolean
                 val amigo = Item(
-                    document.id.hashCode(), // Usando hashCode como ID no me da error
+                    document.id.hashCode(), //usando hashCode como ID no me da error
                     document.get("foto") as? String?: "",
                     document.get("usuario") as String,
                     document.get("estado") as? String ?: "¡Hola, estoy usando Android Messenger!",
@@ -162,21 +163,21 @@ class FavoritosFragment : Fragment() {
         }
     }
 
-    companion object
-    {
-//        //Patrón Singleton
-//        private var instance: FavoritosFragment? = null
-//
-//        fun getInstance(): FavoritosFragment
-//        {
-//
-//            if (instance == null)
-//            {
-//                instance = FavoritosFragment()
-//            }
-//
-//            return instance!!
-//        }
-    }
+//    companion object
+//    {
+////        //Patrón Singleton
+////        private var instance: FavoritosFragment? = null
+////
+////        fun getInstance(): FavoritosFragment
+////        {
+////
+////            if (instance == null)
+////            {
+////                instance = FavoritosFragment()
+////            }
+////
+////            return instance!!
+////        }
+//    }
 
 }
